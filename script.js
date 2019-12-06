@@ -65,7 +65,7 @@ function generateHtml(data) {
       </div>
     </div>`);
 
-    const html = `<section class="" id="${d.year}">
+    const html = `<section id="${d.year}">
   <h2 class="section-header">${d.year}</h2>
   <div class="hero-image"><img src="${d.heroShoeImageUrl}" alt="${d.heroShoeName}" /></div>
   <div class="hero-info">
