@@ -1,0 +1,48 @@
+// Used to calculate precise spacings. Returns line-height caused offset between text and container
+
+@function typo-offset($font-size: $fontsize-base, $line-height: $lineheight-base) {
+  $offset: 0px;
+
+  @if unit($font-size) != px {
+    @warn 'Assuming #{$font-size} to be in pixels, attempting to convert it into pixels.';
+    $font-size: $font-size + 0px;
+  }
+
+  @if unit($line-height) == em {
+    $line-height: $line-height / 1em;
+  }
+
+  @if unitless($line-height) {
+    $line-height: $font-size * $line-height;
+  }
+
+  @return floor(($font-size - $line-height) / 2) - 1px;
+}
+
+@function font-style-offsets($style) {
+  $font-style: map-get($font-styles, $style);
+
+  $line-heights: $lineheight-base;
+
+  @if map-has-key($font-style, 'line-height') {
+    $line-heights: map-get($font-style, "line-height");
+  }
+
+  $font-sizes: $fontsize-base;
+
+  @if map-has-key($font-style, 'font-size') {
+    $font-sizes: map-get($font-style, "font-size");
+  }
+
+  @if type-of($font-sizes) != list {
+    $font-sizes: $font-sizes $font-sizes;
+  }
+
+  @if type-of($line-heights) != list {
+    $line-heights: $line-heights $line-heights;
+  }
+
+  $offset-desktop: typo-offset(nth($font-sizes, 1), nth($line-heights, 1));
+  $offset-mobile: typo-offset(nth($font-sizes, 2), nth($line-heights, 2));
+  @return ($offset-desktop, $offset-mobile);
+}

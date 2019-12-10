@@ -1,0 +1,20 @@
+{
+  "name": "decade-sneakers",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:spacemup/decade-sneakers.git",
+  "author": "Avery <spacemup@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "browser-sync": "^2.26.7",
+    "sass": "^1.23.7"
+  },
+  "scripts": {
+    "start": "concurrently 'yarn start:browsersync' 'yarn compile-css'",
+    "start:browsersync": "browser-sync start --server --files \"*.css\"",
+    "compile-css": "sass --watch decadeSneakers.scss decadeSneakers.css"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.1"
+  }
+}

@@ -1,0 +1,11 @@
+// A function helper to avoid having to type `map-get($z-layers, ...)`
+//
+// $layer       : name of layer to use from variables/_z-layers.scss
+
+@function z($layer) {
+  @if not map-has-key($z-layers, $layer) {
+    @warn "No z-index found in $z-layers map for `#{$layer}`. Property omitted.";
+  }
+
+  @return map-get($z-layers, $layer);
+}

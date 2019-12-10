@@ -1,0 +1,23 @@
+// First value: tablet/desktop, second value: mobile
+$spacings: (
+  huge: 120px 35px,
+  larger: 80px 35px,
+  large: 60px 35px,
+  normal: 45px 25px,
+  small: 35px 20px,
+  smaller: 15px 15px,
+  tiny: 10px 10px
+);
+
+$sidebar-width: 330px;
+$post-content-width: 680px;
+
+$content-offset-mobile-small: 15px;
+$content-offset-mobile: 20px;
+$content-offset-tablet: 20px;
+
+$desktop-fixed-width: 960px;
+$widescreen-fixed-width: 1200px;
+$extended-widescreen-fixed-width: 1500px;
+
+$gutter-width: 2.8%;

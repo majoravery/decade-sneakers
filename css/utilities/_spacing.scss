@@ -1,0 +1,43 @@
+// A mixin to applies specified spacings onto a specified property. 
+//
+// $size        : name of a spacings variation defined in variables/_spacings.scss. Specify one value for desktop, or two for desktop and mobile—e.g.: $size: 45px 25px
+// $property    : name of the CSS property you want to style
+// $offset      : offset values in pixels to add to or subtract from the spacing values. Specify one value for desktop, or two for desktop and mobile. 
+// $breakpoint  : string (either "desktop" or "mobile") for mixin to apply the spacings on devices with screen resolutions up to the specified breakpoint. Set false for spacings to be applied regardless.
+// $invert      : boolean flag for negating the spacings
+// $important   : boolean flag for forcing the spacing styles by using !important
+
+@mixin spacing($size: "normal", $property: "margin-bottom", $offset: 0px, $breakpoint: false, $invert: false, $important: false) {
+  $spacing: 0px 0px;
+
+  @if type-of($size) == list {
+    $spacing: $size;
+  } @else {
+    $spacing: map-get($spacings, $size);
+  }
+
+  @if type-of($offset) == string {
+    $offset: font-style-offsets($offset);
+  }
+
+  $offset-desktop: $offset;
+  $offset-mobile: $offset;
+
+  @if length($offset) == 2 {
+    $offset-desktop: nth($offset, 1);
+    $offset-mobile: nth($offset, 2);
+  }
+
+  $desktop: (nth($spacing, 1) + $offset-desktop) * if($invert, -1, 1);
+  $mobile: (nth($spacing, 2) + $offset-mobile) * if($invert, -1, 1);
+
+  $isImportant: if($important == true, !important, null);
+
+  @if $breakpoint == desktop or $desktop == $mobile {
+    #{$property}: auto-rem($desktop) $isImportant;
+  } @elseif $breakpoint == mobile {
+    #{$property}: auto-rem($mobile) $isImportant;
+  } @else {
+    @include responsive-property($property, auto-rem($desktop) $isImportant, auto-rem($mobile) $isImportant);
+  }
+}

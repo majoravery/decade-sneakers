@@ -1,0 +1,25 @@
+// Assigns value to given property using common breakpoints
+//
+// $property   : CSS property to assign value to
+// $desktop    : Desktop value (and also tablet, if tablet is not provided)
+// $mobile     : Mobile value (default value because it's mobile-first)
+// $tablet     : Tablet value
+
+@mixin responsive-property($property, $desktop: false, $mobile: false, $tablet: false) {
+  @if $mobile {
+    #{$property}: $mobile;
+  }
+
+  @if $desktop and $tablet == false {
+    @include mq($from: tablet) {
+      #{$property}: $desktop;
+    }
+  } @else if $desktop and $tablet {
+    @include mq($from: tablet, $to: desktop) {
+      #{$property}: $desktop;
+    }
+    @include mq($from: desktop) {
+      #{$property}: $desktop;
+    }
+  }
+}

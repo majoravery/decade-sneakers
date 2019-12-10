@@ -1,0 +1,34 @@
+// Icon helper
+//
+// $icon          : name of icon in variables/$icons
+// $spacing-right : spacing between icon and following text.
+// $position      : "before" or "after" the text
+// $hide-text     : boolean flag to decide if text should be hidden
+
+@mixin inline-icon($icon: false, $spacing-right: false, $position: "before", $hide-text: false) {  
+  @if $hide-text {
+    font-size: 0;
+  }
+
+  &:#{$position} {
+    @if $icon {
+      content: icon-val($icon);
+    }
+    font-family: $font-family-icons;
+    position: relative;
+
+    @if $spacing-right {
+      padding-right: $spacing-right;
+    }
+
+    @content;
+  }
+}
+
+@function icon-val($name) {
+  @if not map-has-key($icons, $name) {
+    @warn "No icon found in $icons for `#{$name}`. Property omitted.";
+  }
+
+  @return map-get($icons, $name);
+}

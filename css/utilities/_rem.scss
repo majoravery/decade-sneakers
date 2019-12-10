@@ -1,0 +1,19 @@
+// Converts px to rem
+//
+// $px         : pixel value
+// $context    : context pixel value as reference (17px)
+
+@function rem($px, $context: $fontsize-base) {
+  @if unitless($px) {
+    @warn 'Assuming #{$px} to be in pixels, attempting to convert it into pixels.';
+    @return rem($px + 0px);
+  } @else if unit($px) == em or unit($px) == rem {
+    @return $px  * 1rem;
+  }
+
+  @return ($px / $context) * 1rem;
+}
+
+@function auto-rem($val) {
+  @return if(unit($val) == 'px', rem($val), $val);
+}

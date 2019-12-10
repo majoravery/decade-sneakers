@@ -1,0 +1,80 @@
+// A mixin that centres the entire layout and applies a max-width value according to the screen resolution
+
+@mixin wrapper($mobile: true, $tablet: true, $desktop: true, $widescreen: true) {
+  @if $mobile {
+    padding: {
+      left: rem($content-offset-mobile-small);
+      right: rem($content-offset-mobile-small);
+    }
+
+    @include mq ($from: mobile-large, $until: tablet) {
+      padding: {
+        left: rem($content-offset-mobile);
+        right: rem($content-offset-mobile);
+      };
+    }
+  }
+
+  @if $tablet {
+    @include mq($from: tablet, $until: desktop) {
+      padding: {
+        left: rem($content-offset-tablet);
+        right: rem($content-offset-tablet);
+        top: rem($content-offset-tablet);
+      }
+    }
+  }
+
+  @if $desktop {
+    @include mq($from: desktop) {
+      padding: {
+        left: 0;
+        right: 0;
+      }
+
+      margin: {
+        left: auto;
+        right: auto;
+      }
+
+      max-width: $desktop-fixed-width;
+    }
+  }
+
+  @if $widescreen {
+    @include mq($from: widescreen) {
+      max-width: $widescreen-fixed-width;
+    }
+  }
+}
+
+@mixin unwrap($mobile: true, $tablet: true) {
+  @if $mobile {
+    @include mq($until: mobile-large) {
+      margin: {
+        left: rem(-1 * $content-offset-mobile-small);
+        right: rem(-1 * $content-offset-mobile-small);
+      }
+    }
+
+    @include mq($from: mobile-large, $until: tablet) {
+      margin: {
+        left: rem(-1 * $content-offset-mobile);
+        right: rem(-1 * $content-offset-mobile);
+      }
+    }
+  }
+
+  @if $tablet {
+    @include mq($from: tablet, $until: desktop) {
+      margin: {
+        left: rem(-1 * $content-offset-tablet);
+        right: rem(-1 * $content-offset-tablet);
+      }
+    }
+  }
+}
+
+%wrapper {
+  @include wrapper();
+}
