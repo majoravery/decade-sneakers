@@ -18,7 +18,7 @@ main {
 
 .section-wrap {
   @include wrapper();
-  
+
   height: 100%;
   scroll-snap-align: start;
 
@@ -88,7 +88,6 @@ main {
 }
 
 .runner-ups {
-  // @include wrapper();
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -99,6 +98,7 @@ main {
 .runner-up {
   border-right: 1px solid black;
   border-bottom: 1px solid black;
+  cursor: pointer;
   position: relative;
   width: calc(100% / 3 - 1px);
 
@@ -110,17 +110,46 @@ main {
     .runner-up-name:before {
       content: '↳ Learn More';
     }
+
+    .runner-up-image img {
+      transform: translateY(-10%);
+    }
+
+    .runner-up-image-shadow {
+      transform: scale(0.8);
+    }
   }
 }
 
 .runner-up-image {
+  align-items: center;
+  display: flex;
   font-size: 0;
+  height: 450px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 
   img {
-    width: 100%;
+    background-color: transparent;
     height: auto;
     object-fit: cover;
+    transform: translateY(0);
+    transition: transform 0.5s ease-in-out;
+    width: 80%;
   }
+}
+
+.runner-up-image-shadow {
+  position: absolute;
+  width: 75%;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.2);
+  top: 60%;
+  border-radius: 50%;
+  filter: blur(15px);
+  transform: scale(1);
+  transition: transform 0.5s ease-in-out;
 }
 
 .runner-up-info {
