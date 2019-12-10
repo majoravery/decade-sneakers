@@ -11,9 +11,36 @@ html {
   width: 100%;
 }
 
+body {
+  position: relative;
+}
+
+body.modal-open {
+  height: 100%;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+  }
+
+  .modal-wrap {
+    visibility: visible;
+  }
+}
+
 main {
   position: relative;
   scroll-snap-type: y proximity;
+  width: 100%;
 }
 
 .section-wrap {
@@ -81,6 +108,7 @@ main {
   line-height: 1.75em;
   margin: 0;
   padding-top: 16px;
+  text-align: justify;
 }
 
 .hero + .runner-ups { 
@@ -178,6 +206,10 @@ main {
   }
 }
 
+.runner-up-copy {
+  display: none;
+}
+
 .runner-ups + .moment { 
   margin-top: 48px;
 }
@@ -225,6 +257,7 @@ main {
   line-height: 1.75em;
   margin: 0;
   padding-top: 16px;
+  text-align: justify;
 }
 
 .moment-read-more {
@@ -254,6 +287,7 @@ main {
   left: 0;
   position: fixed;
   right: 0;
+  z-index: 1;
 }
 
 .nav-bar {
@@ -284,4 +318,89 @@ main {
     background-color: black;
     color: white;
   }
+}
+
+.modal-wrap {
+  align-items: center;
+  bottom: 0;
+  visibility: hidden;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  left: 1px; // modal is 1px off from the overlay behind - not sure why
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+.modal {
+  @include wrapper();
+
+  background-color: white;
+  border: 1px solid black;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 50vw;
+
+  > * {
+    width: 50%;
+  }
+}
+
+.modal-image-wrap {
+  flex: 1 0 50%;
+  height: 100%;
+  font-size: 0;
+  
+  img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.modal-info-wrap {
+  box-sizing: border-box;
+  flex: 1 0 50%;
+  border-left: 1px solid black;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.modal-info-name {
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 1em;
+  margin: 0;
+  margin-bottom: 16px;
+}
+
+.modal-info-copy {
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 1.75em;
+  margin: 0;
+  text-align: justify;
+}
+
+.modal-close-button {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 2em;
+  font-size: 20px;
 }
