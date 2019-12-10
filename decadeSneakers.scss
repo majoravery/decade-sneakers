@@ -129,13 +129,14 @@ main {
   justify-content: center;
   position: relative;
   width: 100%;
+  background: linear-gradient(#ccc, #fff);
 
   img {
     background-color: transparent;
     height: auto;
     object-fit: cover;
     transform: translateY(0);
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.3s ease-in-out;
     width: 80%;
   }
 }
@@ -149,7 +150,7 @@ main {
   border-radius: 50%;
   filter: blur(15px);
   transform: scale(1);
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 .runner-up-info {
@@ -238,6 +239,7 @@ main {
   padding: 16px 24px;
   position: absolute;
   transition: background-color 0.3s ease, color 0.3s ease;
+  outline: none;
 
   &:hover {
     background-color: black;
