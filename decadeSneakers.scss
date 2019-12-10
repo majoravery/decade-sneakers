@@ -4,9 +4,23 @@
   font-family: sans-serif;
 }
 
+body,
+html {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+}
+
+main {
+  position: relative;
+  scroll-snap-type: y proximity;
+}
+
 .section-wrap {
   @include wrapper();
+  
   height: 100%;
+  scroll-snap-align: start;
 
   & + & {
     margin-top: 96px;
@@ -61,23 +75,47 @@
   border-bottom: 1px solid black;
   position: relative;
   width: calc(100% / 3 - 1px);
+
+  &:hover {
+    .runner-up-name:before {
+      content: 'Learn More';
+    }
+  }
 }
 
 .runner-up-image {
+  font-size: 0;
 
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 }
 
 .runner-up-info {
-  width: 100%;
+  box-sizing: border-box;
   height: 100%;
-  position: relative;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 .runner-up-name {
-  position: absolute;
-  left: 0;
   bottom: 0;
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 1em;
+  margin: 0;
   padding: 16px;
+  position: absolute;
+
+  &:before {
+    font-size: 1em;
+    font-weight: normal;
+    line-height: 1em;
+  }
 }
 
 .runner-ups + .moment { 
@@ -103,7 +141,6 @@
 
 .moment-info {
   border-top: 1px solid black;
-  height: 100%;
   position: relative;
 }
 
@@ -130,4 +167,43 @@
   left: 0;
   padding: 16px 24px;
   position: absolute;
+}
+
+.nav-bar-wrap {
+  background-color: white;
+  bottom: 0;
+  box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.1);
+  left: 0;
+  position: fixed;
+  right: 0;
+}
+
+.nav-bar {
+  @include wrapper();
+  display: block;
+  padding-top: 8px;
+  padding-bottom: 16px;
+  text-align: center;
+}
+
+.nav-button {
+  display: inline-block;
+  background-color: white;
+  border-radius: 32px;
+  border: 1px solid black;
+  color: black;
+  font-size: 1em;
+  padding: 12px 24px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  & + & {
+    margin-left: 8px;
+  }
+
+  &.active,
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 }
