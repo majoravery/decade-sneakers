@@ -22,6 +22,10 @@ main {
   height: 100%;
   scroll-snap-align: start;
 
+  &[id="2019"] {
+    margin-bottom: 70px + 32px; // 70px is height of nav bar
+  }
+
   & + & {
     margin-top: 96px;
   }
@@ -39,12 +43,17 @@ main {
   @include wrapper();
   width: 100%;
   border: 1px solid black;
+  font-size: 0;
 
   img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
   }
+}
+
+.hero-image + .hero-info {
+  margin-top: 24px;
 }
 
 .hero-info {
@@ -52,13 +61,30 @@ main {
   justify-content: space-between;
   width: 100%;
 
-  div {
+  > * {
     width: 49%;
   }
 }
 
-.hero-info + .runner-ups { 
-  margin-top: 48px;
+.hero-shoe-name {
+  border-top: 1px solid black;
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 1em;
+  margin: 0;
+  padding-top: 16px;
+}
+
+.hero-shoe-copy {
+  border-top: 1px solid black;
+  font-size: 1em;
+  line-height: 1.75em;
+  margin: 0;
+  padding-top: 16px;
+}
+
+.hero + .runner-ups { 
+  margin-top: 56px;
 }
 
 .runner-ups {
@@ -77,8 +103,12 @@ main {
   width: calc(100% / 3 - 1px);
 
   &:hover {
+    .runner-up-name span {
+      display: none;
+    }
+
     .runner-up-name:before {
-      content: 'Learn More';
+      content: '↳ Learn More';
     }
   }
 }
@@ -128,7 +158,7 @@ main {
   justify-content: space-between;
   width: 100%;
 
-  div {
+  > * {
     width: 49%;
   }
 }
@@ -154,7 +184,7 @@ main {
 
 .moment-copy {
   font-size: 1em;
-  line-height: 1.25em;
+  line-height: 1.75em;
   margin: 0;
   padding-top: 16px;
 }
