@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "concurrently 'yarn start:browsersync' 'yarn compile-css'",
-    "start:browsersync": "browser-sync start --server --files \"*.css\"",
+    "start:browsersync": "browser-sync start --server --files \"*.css\" \"*.js\"",
     "compile-css": "sass --watch decadeSneakers.scss decadeSneakers.css"
   },
   "devDependencies": {
