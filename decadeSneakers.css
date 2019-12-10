@@ -10,7 +10,7 @@
   content: "";
   display: inline-block;
   height: 12px;
-  margin-right: rem(size(1));
+  margin-right: 8px;
   transform: translate3d(-1px, 2px, 0);
   vertical-align: middle;
   width: 12px;
@@ -23,9 +23,14 @@
   }
 }
 
+* {
+  font-family: sans-serif;
+}
+
 .section-wrap {
   padding-left: 0.8823529412rem;
   padding-right: 0.8823529412rem;
+  height: 100%;
 }
 @media (min-width: 23.4375em) and (max-width: 39.99em) {
   .section-wrap {
@@ -54,17 +59,38 @@
     max-width: 1200px;
   }
 }
+.section-wrap + .section-wrap {
+  margin-top: 96px;
+}
 
 .section-header {
   align-items: flex-start;
+  border-top: 1px solid #2e2e2e;
+  color: #2e2e2e;
   display: flex;
   flex: 1 1 auto;
+  font-weight: normal;
   justify-content: center;
   padding-top: 8px;
   width: 100%;
 }
 .section-header::before {
   flex: 0 0 auto;
+  background-color: #2e2e2e;
+}
+
+.section-header-content {
+  font-size: 14px;
+  line-height: 16px;
+  display: inline-block;
+  flex: 1 1 auto;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+@media (min-width: 64em) {
+  .section-header-content {
+    font-size: 15px;
+  }
 }
 
 .hero-image {
@@ -112,7 +138,7 @@
   width: 100%;
 }
 .hero-info div {
-  width: 48%;
+  width: 49%;
 }
 
 .hero-info + .runner-ups {
@@ -131,7 +157,7 @@
   border-right: 1px solid black;
   border-bottom: 1px solid black;
   position: relative;
-  width: 33%;
+  width: calc(100% / 3 - 1px);
 }
 
 .runner-up-info {
@@ -153,29 +179,49 @@
 
 .moment {
   display: flex;
+  height: 100%;
   justify-content: space-between;
   width: 100%;
 }
 .moment div {
-  width: 48%;
+  width: 49%;
 }
 
-.moment-image-wrap {
+.moment-image {
   border: 1px solid black;
+  height: 600px;
+  position: relative;
 }
 
 .moment-info {
-  position: relative;
+  border-top: 1px solid black;
   height: 100%;
+  position: relative;
+}
+
+.moment-name {
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 1em;
+  margin: 0;
+  padding-top: 16px;
+}
+
+.moment-copy {
+  font-size: 1em;
+  line-height: 1.25em;
+  margin: 0;
+  padding-top: 16px;
 }
 
 .moment-read-more {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  padding: 24px;
-  border-radius: 10px;
+  border-radius: 32px;
   border: 1px solid black;
+  bottom: 0;
+  font-size: 1em;
+  left: 0;
+  padding: 16px 24px;
+  position: absolute;
 }
 
 /*# sourceMappingURL=decadeSneakers.css.map */

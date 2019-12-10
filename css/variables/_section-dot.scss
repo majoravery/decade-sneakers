@@ -1,3 +1,5 @@
+@import '../utilities/spacing';
+
 $dot-size-mobile: 12px;
 $dot-size-desktop: 13px;
 
@@ -6,7 +8,7 @@ $dot-size-desktop: 13px;
   content: '';
   display: inline-block;
   height: $dot-size-mobile;
-  margin-right: rem(size(1));
+  margin-right: size(1);
   transform: translate3d(-1px, 2px, 0);
   vertical-align: middle;
   width: $dot-size-mobile;

@@ -35,9 +35,13 @@
 
   @if $breakpoint == desktop or $desktop == $mobile {
     #{$property}: auto-rem($desktop) $isImportant;
-  } @elseif $breakpoint == mobile {
+  } @else if $breakpoint == mobile {
     #{$property}: auto-rem($mobile) $isImportant;
   } @else {
     @include responsive-property($property, auto-rem($desktop) $isImportant, auto-rem($mobile) $isImportant);
   }
+}
+
+@function size($factor: 1) {
+  @return 8px * $factor;
 }
