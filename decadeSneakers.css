@@ -74,7 +74,7 @@ main {
   }
 }
 .section-wrap[id="2019"] {
-  margin-bottom: 102px;
+  margin-bottom: 108px;
 }
 .section-wrap + .section-wrap {
   margin-top: 96px;
@@ -282,8 +282,14 @@ main {
 
 .moment-image {
   border: 1px solid black;
+  font-size: 0;
   height: 600px;
   position: relative;
+}
+.moment-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .moment-info {
@@ -307,13 +313,21 @@ main {
 }
 
 .moment-read-more {
+  background-color: white;
   border-radius: 32px;
   border: 1px solid black;
   bottom: 0;
+  color: black;
+  cursor: pointer;
   font-size: 1em;
   left: 0;
   padding: 16px 24px;
   position: absolute;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.moment-read-more:hover {
+  background-color: black;
+  color: white;
 }
 
 .nav-bar-wrap {
@@ -329,7 +343,7 @@ main {
   padding-left: 0.8823529412rem;
   padding-right: 0.8823529412rem;
   display: block;
-  padding-top: 8px;
+  padding-top: 16px;
   padding-bottom: 16px;
   text-align: center;
 }

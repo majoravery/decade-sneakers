@@ -23,7 +23,7 @@ main {
   scroll-snap-align: start;
 
   &[id="2019"] {
-    margin-bottom: 70px + 32px; // 70px is height of nav bar
+    margin-bottom: 76px + 32px; // 76px is height of nav bar
   }
 
   & + & {
@@ -194,8 +194,16 @@ main {
 
 .moment-image {
   border: 1px solid black;
+  font-size: 0;
   height: 600px;
   position: relative;
+  // width: 100%;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .moment-info {
@@ -219,13 +227,22 @@ main {
 }
 
 .moment-read-more {
+  background-color: white;
   border-radius: 32px;
   border: 1px solid black;
   bottom: 0;
+  color: black;
+  cursor: pointer;
   font-size: 1em;
   left: 0;
   padding: 16px 24px;
   position: absolute;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 }
 
 .nav-bar-wrap {
@@ -240,7 +257,7 @@ main {
 .nav-bar {
   @include wrapper();
   display: block;
-  padding-top: 8px;
+  padding-top: 16px;
   padding-bottom: 16px;
   text-align: center;
 }
