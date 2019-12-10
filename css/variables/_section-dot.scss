@@ -1,0 +1,19 @@
+$dot-size-mobile: 12px;
+$dot-size-desktop: 13px;
+
+%section-dot {
+  border-radius: 50%;
+  content: '';
+  display: inline-block;
+  height: $dot-size-mobile;
+  margin-right: rem(size(1));
+  transform: translate3d(-1px, 2px, 0);
+  vertical-align: middle;
+  width: $dot-size-mobile;
+
+  @include mq($from: tablet-wide) {
+    height: $dot-size-desktop;
+    transform: translate3d(-1px, 2px, 0);
+    width: $dot-size-desktop;
+  }
+}

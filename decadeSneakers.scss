@@ -4,6 +4,10 @@
   @include wrapper();
 }
 
+.section-header {
+  @include section-header();
+}
+
 .hero-image {
   @include wrapper();
   width: 100%;
