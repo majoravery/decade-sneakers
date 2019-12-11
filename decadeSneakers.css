@@ -105,7 +105,12 @@ main {
   margin-bottom: 108px;
 }
 .section-wrap + .section-wrap {
-  margin-top: 96px;
+  margin-top: 56px;
+}
+@media (min-width: 40em) {
+  .section-wrap + .section-wrap {
+    margin-top: 96px;
+  }
 }
 
 .section-header {
@@ -139,26 +144,30 @@ main {
 }
 
 .hero-image {
-  padding-left: 0.8823529412rem;
-  padding-right: 0.8823529412rem;
   width: 100%;
   border: 1px solid black;
   font-size: 0;
 }
-@media (min-width: 23.4375em) and (max-width: 39.99em) {
+@media (min-width: 40em) {
+  .hero-image {
+    padding-left: 0.8823529412rem;
+    padding-right: 0.8823529412rem;
+  }
+}
+@media (min-width: 40em) and (min-width: 23.4375em) and (max-width: 39.99em) {
   .hero-image {
     padding-left: 1.1764705882rem;
     padding-right: 1.1764705882rem;
   }
 }
-@media (min-width: 40em) and (max-width: 63.99em) {
+@media (min-width: 40em) and (min-width: 40em) and (max-width: 63.99em) {
   .hero-image {
     padding-left: 1.1764705882rem;
     padding-right: 1.1764705882rem;
     padding-top: 1.1764705882rem;
   }
 }
-@media (min-width: 64em) {
+@media (min-width: 40em) and (min-width: 64em) {
   .hero-image {
     padding-left: 0;
     padding-right: 0;
@@ -167,7 +176,7 @@ main {
     max-width: 960px;
   }
 }
-@media (min-width: 78.75em) {
+@media (min-width: 40em) and (min-width: 78.75em) {
   .hero-image {
     max-width: 1200px;
   }
@@ -184,11 +193,17 @@ main {
 
 .hero-info {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
 }
 .hero-info > * {
-  width: 49%;
+  width: 100%;
+}
+@media (min-width: 40em) {
+  .hero-info > * {
+    width: 49%;
+  }
 }
 
 .hero-shoe-name {
@@ -204,13 +219,23 @@ main {
   border-top: 1px solid black;
   font-size: 1em;
   line-height: 1.75em;
-  margin: 0;
+  margin: 16px 0 0;
   padding-top: 16px;
   text-align: justify;
 }
+@media (min-width: 40em) {
+  .hero-shoe-copy {
+    margin: 0;
+  }
+}
 
 .hero + .runner-ups {
-  margin-top: 56px;
+  margin-top: 48px;
+}
+@media (min-width: 40em) {
+  .hero + .runner-ups {
+    margin-top: 56px;
+  }
 }
 
 .runner-ups {
@@ -226,7 +251,12 @@ main {
   border-bottom: 1px solid black;
   cursor: pointer;
   position: relative;
-  width: calc(100% / 3 - 1px);
+  width: 100%;
+}
+@media (min-width: 40em) {
+  .runner-up {
+    width: calc(100% / 3 - 1px);
+  }
 }
 .runner-up:hover .runner-up-name span {
   display: none;
@@ -305,12 +335,18 @@ main {
 
 .moment {
   display: flex;
+  flex-wrap: wrap;
   height: 100%;
   justify-content: space-between;
   width: 100%;
 }
 .moment > * {
-  width: 49%;
+  width: 100%;
+}
+@media (min-width: 40em) {
+  .moment > * {
+    width: 49%;
+  }
 }
 
 .moment-image {
@@ -323,6 +359,15 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.moment-image + .moment-info {
+  margin-top: 24px;
+}
+@media (min-width: 40em) {
+  .moment-image + .moment-info {
+    margin-top: 0;
+  }
 }
 
 .moment-info {
@@ -348,17 +393,23 @@ main {
 
 .moment-read-more {
   background-color: white;
-  border-radius: 32px;
   border: 1px solid black;
-  bottom: 0;
+  border-radius: 32px;
   color: black;
   cursor: pointer;
   font-size: 1em;
-  left: 0;
+  margin-top: 16px;
   outline: none;
-  padding: 16px 24px;
-  position: absolute;
+  padding: 16px 20px;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+@media (min-width: 40em) {
+  .moment-read-more {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    margin-top: 0;
+  }
 }
 .moment-read-more:hover {
   background-color: black;
@@ -369,34 +420,74 @@ main {
   background-color: white;
   bottom: 0;
   box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.1);
+  display: block;
   left: 0;
+  padding-bottom: 32px;
+  padding-top: 16px;
   position: fixed;
   right: 0;
+  text-align: center;
   z-index: 1;
+}
+.nav-bar-wrap:before, .nav-bar-wrap:after {
+  content: " ";
+  bottom: 0;
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 48px;
+  z-index: 1;
+}
+@media (min-width: 40em) {
+  .nav-bar-wrap:before, .nav-bar-wrap:after {
+    display: none;
+  }
+}
+.nav-bar-wrap:before {
+  background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
+  left: 0;
+}
+.nav-bar-wrap:after {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
+  right: 0;
+}
+@media (min-width: 64em) {
+  .nav-bar-wrap {
+    padding-bottom: 16px;
+  }
 }
 
 .nav-bar {
-  padding-left: 0.8823529412rem;
-  padding-right: 0.8823529412rem;
-  display: block;
-  padding-bottom: 16px;
-  padding-top: 16px;
-  text-align: center;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  padding-left: 16px;
+  padding-top: 0;
+  position: relative;
 }
-@media (min-width: 23.4375em) and (max-width: 39.99em) {
+@media (min-width: 64em) {
+  .nav-bar {
+    padding-left: 0.8823529412rem;
+    padding-right: 0.8823529412rem;
+    overflow-x: auto;
+    padding-left: 0;
+  }
+}
+@media (min-width: 64em) and (min-width: 23.4375em) and (max-width: 39.99em) {
   .nav-bar {
     padding-left: 1.1764705882rem;
     padding-right: 1.1764705882rem;
   }
 }
-@media (min-width: 40em) and (max-width: 63.99em) {
+@media (min-width: 64em) and (min-width: 40em) and (max-width: 63.99em) {
   .nav-bar {
     padding-left: 1.1764705882rem;
     padding-right: 1.1764705882rem;
     padding-top: 1.1764705882rem;
   }
 }
-@media (min-width: 64em) {
+@media (min-width: 64em) and (min-width: 64em) {
   .nav-bar {
     padding-left: 0;
     padding-right: 0;
@@ -405,18 +496,33 @@ main {
     max-width: 960px;
   }
 }
-@media (min-width: 78.75em) {
+@media (min-width: 64em) and (min-width: 78.75em) {
   .nav-bar {
     max-width: 1200px;
   }
 }
 .nav-bar ul {
+  box-sizing: content-box;
+  display: flex;
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  min-width: 864px;
+  padding: 0 16px 0 0;
+  transform: translateY(0);
+  transition: transform 0.5s ease;
 }
-.nav-bar li {
+@media (min-width: 40em) {
+  .nav-bar ul {
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+.nav-item {
   display: inline-block;
+}
+.nav-item + .nav-item {
+  margin-left: 8px;
 }
 
 .nav-button {
@@ -426,12 +532,9 @@ main {
   border: 1px solid black;
   color: black;
   font-size: 1em;
-  padding: 12px 24px;
+  padding: 12px 20px;
   text-decoration: none;
   transition: background-color 0.3s ease, color 0.3s ease;
-}
-.nav-button + .nav-button {
-  margin-left: 8px;
 }
 .nav-button.active, .nav-button:hover {
   background-color: black;

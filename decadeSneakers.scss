@@ -58,7 +58,11 @@ main {
   }
 
   & + & {
-    margin-top: 96px;
+    margin-top: 56px;
+    
+    @include mq($from: tablet) {
+      margin-top: 96px;
+    }
   }
 }
 
@@ -71,10 +75,13 @@ main {
 }
 
 .hero-image {
-  @include wrapper();
   width: 100%;
   border: 1px solid black;
   font-size: 0;
+
+  @include mq($from: tablet) {
+    @include wrapper();
+  }
 
   img {
     width: 100%;
@@ -89,11 +96,16 @@ main {
 
 .hero-info {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
 
   > * {
-    width: 49%;
+    width: 100%;
+
+    @include mq($from: tablet) {
+      width: 49%;
+    }
   }
 }
 
@@ -110,13 +122,21 @@ main {
   border-top: 1px solid black;
   font-size: 1em;
   line-height: 1.75em;
-  margin: 0;
+  margin: 16px 0 0;
   padding-top: 16px;
   text-align: justify;
+
+  @include mq($from: tablet) {
+    margin: 0;
+  }
 }
 
 .hero + .runner-ups { 
-  margin-top: 56px;
+  margin-top: 48px;
+  
+  @include mq($from: tablet) {
+    margin-top: 56px;
+  }
 }
 
 .runner-ups {
@@ -132,7 +152,11 @@ main {
   border-bottom: 1px solid black;
   cursor: pointer;
   position: relative;
-  width: calc(100% / 3 - 1px);
+  width: 100%;
+
+  @include mq($from: tablet) {
+    width: calc(100% / 3 - 1px);
+  }
 
   &:hover {
     .runner-up-name span {
@@ -157,7 +181,7 @@ main {
   align-items: center;
   display: flex;
   font-size: 0;
-  height: 450px;
+  height: 450px; // TODO: change obvs
   justify-content: center;
   position: relative;
   width: 100%;
@@ -219,12 +243,17 @@ main {
 
 .moment {
   display: flex;
+  flex-wrap: wrap;
   height: 100%;
   justify-content: space-between;
   width: 100%;
 
   > * {
-    width: 49%;
+    width: 100%;
+
+    @include mq($from: tablet) {
+      width: 49%;
+    }
   }
 }
 
@@ -238,6 +267,14 @@ main {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+}
+
+.moment-image + .moment-info {
+  margin-top: 24px;
+
+  @include mq($from: tablet) {
+    margin-top: 0;
   }
 }
 
@@ -264,17 +301,22 @@ main {
 
 .moment-read-more {
   background-color: white;
-  border-radius: 32px;
   border: 1px solid black;
-  bottom: 0;
+  border-radius: 32px;
   color: black;
   cursor: pointer;
   font-size: 1em;
-  left: 0;
+  margin-top: 16px;
   outline: none;
-  padding: 16px 24px;
-  position: absolute;
+  padding: 16px 20px;
   transition: background-color 0.3s ease, color 0.3s ease;
+
+  @include mq($from: tablet) {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    margin-top: 0;
+  }
 
   &:hover {
     background-color: black;
@@ -286,28 +328,83 @@ main {
   background-color: white;
   bottom: 0;
   box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.1);
+  display: block;
   left: 0;
+  padding-bottom: 32px;
+  padding-top: 16px;
   position: fixed;
   right: 0;
+  text-align: center;
   z-index: 1;
+
+  &:before,
+  &:after {
+    content: ' ';
+    bottom: 0;
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 48px;
+    z-index: 1;
+
+    @include mq($from: tablet) {
+      display: none;
+    }
+  }
+
+  &:before {
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    left: 0;
+  }
+
+  &:after {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    right: 0;
+  }
+
+  @include mq($from: desktop) {
+    padding-bottom: 16px;
+  }
 }
 
 .nav-bar {
-  @include wrapper();
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  padding-left: 16px;
+  padding-top: 0;
+  position: relative;
 
-  display: block;
-  padding-bottom: 16px;
-  padding-top: 16px;
-  text-align: center;
+  @include mq($from: desktop) {
+    @include wrapper();
 
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+    overflow-x: auto;
+    padding-left: 0;
   }
 
-  li {
-    display: inline-block;
+  ul {
+    box-sizing: content-box;
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    min-width: 864px;
+    padding: 0 16px 0 0;
+    transform: translateY(0);
+    transition: transform 0.5s ease;
+
+    @include mq($from: tablet) {
+      padding: 0;
+      justify-content: center;
+    }
+  }
+}
+
+.nav-item {
+  display: inline-block;
+
+  & + & {
+    margin-left: 8px;
   }
 }
 
@@ -318,13 +415,9 @@ main {
   border: 1px solid black;
   color: black;
   font-size: 1em;
-  padding: 12px 24px;
+  padding: 12px 20px;
   text-decoration: none;
   transition: background-color 0.3s ease, color 0.3s ease;
-
-  & + & {
-    margin-left: 8px;
-  }
 
   &.active,
   &:hover {

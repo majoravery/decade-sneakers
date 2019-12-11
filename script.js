@@ -1,4 +1,6 @@
 (function() {
+  var isDesktop;
+
   var shoeInModal;
   var activeYearButtonEl = document.querySelector('.nav-button.active');
   var bodyEl = document.querySelector('body');
@@ -6,10 +8,20 @@
   var modalCopyEl = document.querySelector('.modal-info-copy');
   var modalImageEl = document.querySelector('.modal-image');
 
-  var addNavBtnClickHandlers = function() {
-    var navBtns = document.querySelectorAll('.nav-button');
-    navBtns.forEach(function(btn) {
-      btn.addEventListener('click', navBtnClickHandler);
+  var navButtonUlEl = document.querySelector('.nav-bar > ul');
+  var windowWidth = document.body.clientWidth;
+  var navButtonWidth = parseFloat(document.querySelector('.nav-button').getBoundingClientRect().width);
+  var navButtonGutterWidth = parseFloat(8 * 9 / 10);
+  var navButtonUlElOffset = 0;;
+
+  var setIsDesktop = function() {
+    isDesktop = document.body.clientWidth > 1023 ? true : false;
+  }
+
+  var addNavButtonClickHandlers = function() {
+    var navButtons = document.querySelectorAll('.nav-button');
+    navButtons.forEach(function(btn) {
+      btn.addEventListener('click', navButtonClickHandler);
     });
 
     var runnerUps = document.querySelectorAll('.runner-up[id]');
@@ -26,7 +38,7 @@
   }
   
 
-  var navBtnClickHandler = function(e) {
+  var navButtonClickHandler = function(e) {
     e.stopPropagation();
     e.preventDefault();
     activeYearButtonEl.classList.remove('active');
@@ -39,6 +51,8 @@
       top: parseInt(window.pageYOffset) + parseInt(sectionOffset),
       behavior: 'smooth'
     });
+
+    snapActiveNavButtonToCenter();
   }
 
   var runnerUpClickHandler = function(e) {
@@ -90,8 +104,22 @@
 
   }
 
+  var snapActiveNavButtonToCenter = function() {
+    if (isDesktop) {
+      return;
+    }
+
+    var activeNavButtonOffset = document.querySelector('.nav-button.active').getBoundingClientRect().x;
+    var centreXOffset = (windowWidth / 2) - (navButtonWidth / 2);
+    navButtonUlElOffset = centreXOffset - activeNavButtonOffset - navButtonGutterWidth + navButtonUlElOffset;
+    console.log(navButtonUlElOffset);
+    navButtonUlEl.style.transform = 'translateX(' + navButtonUlElOffset + 'px)';
+  }
+
   window.onload = function() {
-    addNavBtnClickHandlers();
+    setIsDesktop();
+    addNavButtonClickHandlers();
     addModalCloseButtonClickHandler();
+    snapActiveNavButtonToCenter();
   }
 })();
