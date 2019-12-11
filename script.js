@@ -1,5 +1,6 @@
 (function() {
   var shoeInModal;
+  var activeYearButtonEl = document.querySelector('.nav-button.active');
   var bodyEl = document.querySelector('body');
   var modalNameEl = document.querySelector('.modal-info-name');
   var modalCopyEl = document.querySelector('.modal-info-copy');
@@ -24,10 +25,15 @@
     });
   }
   
+
   var navBtnClickHandler = function(e) {
+    e.stopPropagation();
     e.preventDefault();
-    var year = e.target.innerHTML;
-    var sectionOffset = document.getElementById(year).getBoundingClientRect().top;
+    activeYearButtonEl.classList.remove('active');
+    activeYearButtonEl = e.target;
+    activeYearButtonEl.classList.add('active');
+    
+    var sectionOffset = document.getElementById(e.target.innerHTML).getBoundingClientRect().top;
 
     window.scrollTo({
       top: parseInt(window.pageYOffset) + parseInt(sectionOffset),
@@ -45,6 +51,7 @@
     populateModal(id);
     toggleModal(true);
   }
+
 
   var toggleModal = function(openModal) {
     if (openModal && shoeInModal) {
@@ -77,6 +84,10 @@
     modalNameEl.innerHTML = '';
     modalCopyEl.innerHTML = '';
     modalImageEl.src = '';
+  }
+
+  var animateModal = function() {
+
   }
 
   window.onload = function() {

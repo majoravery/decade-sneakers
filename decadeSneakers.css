@@ -355,10 +355,10 @@ main {
   cursor: pointer;
   font-size: 1em;
   left: 0;
+  outline: none;
   padding: 16px 24px;
   position: absolute;
   transition: background-color 0.3s ease, color 0.3s ease;
-  outline: none;
 }
 .moment-read-more:hover {
   background-color: black;
@@ -379,8 +379,8 @@ main {
   padding-left: 0.8823529412rem;
   padding-right: 0.8823529412rem;
   display: block;
-  padding-top: 16px;
   padding-bottom: 16px;
+  padding-top: 16px;
   text-align: center;
 }
 @media (min-width: 23.4375em) and (max-width: 39.99em) {
@@ -409,6 +409,14 @@ main {
   .nav-bar {
     max-width: 1200px;
   }
+}
+.nav-bar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-bar li {
+  display: inline-block;
 }
 
 .nav-button {
