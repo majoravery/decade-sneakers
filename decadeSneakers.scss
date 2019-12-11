@@ -429,30 +429,49 @@ main {
 .modal-wrap {
   align-items: center;
   bottom: 0;
-  visibility: hidden;
-  height: 100%;
+  box-sizing: border-box;
   display: flex;
+  height: 100%;
   justify-content: center;
   left: 1px; // modal is 1px off from the overlay behind - not sure why
+  padding: 16px;
   position: fixed;
   right: 0;
   top: 0;
+  visibility: hidden;
   width: 100%;
   z-index: 3;
+
+  @include mq($from: tablet) {
+    padding: 0;
+  }
 }
 
 .modal {
-  @include wrapper();
-
   background-color: white;
   border: 1px solid black;
   display: flex;
+  flex-wrap: wrap;
+  height: calc(100vh - 32px);
   position: relative;
   width: 100%;
-  height: 40vw;
+  overflow-y: scroll;
+  
+  @include mq($from: tablet) {
+    @include wrapper();
+
+    height: 40vw;
+    overflow-y: auto;
+  }
 
   > * {
-    width: 50%;
+    flex: 1 0 100%;
+    width: 100%;
+
+    @include mq($from: tablet) {
+      flex: 1 0 50%;
+      width: 50%;
+    }
   }
 }
 
@@ -460,12 +479,15 @@ main {
   align-items: center;
   background: linear-gradient(#ccc, #fff);
   display: flex;
-  flex: 1 0 50%;
   font-size: 0;
-  height: 100%;
+  height: 70%;
   justify-content: center;
   position: relative;
   
+  @include mq($from: tablet) {
+    height: 100%;
+  }
+
   img {
     height: 100%;
     object-fit: cover;
@@ -486,13 +508,18 @@ main {
 }
 
 .modal-info-wrap {
+  background-color: white;
+  border-top: 1px solid black;
   box-sizing: border-box;
-  flex: 1 0 50%;
-  border-left: 1px solid black;
-  padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  padding: 24px;
+
+  @include mq($from: tablet) {
+    border-top: 0;
+    border-left: 1px solid black;
+  }
 }
 
 .modal-info-name {

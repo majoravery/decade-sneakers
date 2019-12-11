@@ -544,42 +544,57 @@ main {
 .modal-wrap {
   align-items: center;
   bottom: 0;
-  visibility: hidden;
-  height: 100%;
+  box-sizing: border-box;
   display: flex;
+  height: 100%;
   justify-content: center;
   left: 1px;
+  padding: 16px;
   position: fixed;
   right: 0;
   top: 0;
+  visibility: hidden;
   width: 100%;
   z-index: 3;
 }
+@media (min-width: 40em) {
+  .modal-wrap {
+    padding: 0;
+  }
+}
 
 .modal {
-  padding-left: 0.8823529412rem;
-  padding-right: 0.8823529412rem;
   background-color: white;
   border: 1px solid black;
   display: flex;
+  flex-wrap: wrap;
+  height: calc(100vh - 32px);
   position: relative;
   width: 100%;
-  height: 40vw;
+  overflow-y: scroll;
 }
-@media (min-width: 23.4375em) and (max-width: 39.99em) {
+@media (min-width: 40em) {
+  .modal {
+    padding-left: 0.8823529412rem;
+    padding-right: 0.8823529412rem;
+    height: 40vw;
+    overflow-y: auto;
+  }
+}
+@media (min-width: 40em) and (min-width: 23.4375em) and (max-width: 39.99em) {
   .modal {
     padding-left: 1.1764705882rem;
     padding-right: 1.1764705882rem;
   }
 }
-@media (min-width: 40em) and (max-width: 63.99em) {
+@media (min-width: 40em) and (min-width: 40em) and (max-width: 63.99em) {
   .modal {
     padding-left: 1.1764705882rem;
     padding-right: 1.1764705882rem;
     padding-top: 1.1764705882rem;
   }
 }
-@media (min-width: 64em) {
+@media (min-width: 40em) and (min-width: 64em) {
   .modal {
     padding-left: 0;
     padding-right: 0;
@@ -588,24 +603,35 @@ main {
     max-width: 960px;
   }
 }
-@media (min-width: 78.75em) {
+@media (min-width: 40em) and (min-width: 78.75em) {
   .modal {
     max-width: 1200px;
   }
 }
 .modal > * {
-  width: 50%;
+  flex: 1 0 100%;
+  width: 100%;
+}
+@media (min-width: 40em) {
+  .modal > * {
+    flex: 1 0 50%;
+    width: 50%;
+  }
 }
 
 .modal-image-wrap {
   align-items: center;
   background: linear-gradient(#ccc, #fff);
   display: flex;
-  flex: 1 0 50%;
   font-size: 0;
-  height: 100%;
+  height: 70%;
   justify-content: center;
   position: relative;
+}
+@media (min-width: 40em) {
+  .modal-image-wrap {
+    height: 100%;
+  }
 }
 .modal-image-wrap img {
   height: 100%;
@@ -626,13 +652,19 @@ main {
 }
 
 .modal-info-wrap {
+  background-color: white;
+  border-top: 1px solid black;
   box-sizing: border-box;
-  flex: 1 0 50%;
-  border-left: 1px solid black;
-  padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  padding: 24px;
+}
+@media (min-width: 40em) {
+  .modal-info-wrap {
+    border-top: 0;
+    border-left: 1px solid black;
+  }
 }
 
 .modal-info-name {

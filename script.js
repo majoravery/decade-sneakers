@@ -8,11 +8,10 @@
   var modalCopyEl = document.querySelector('.modal-info-copy');
   var modalImageEl = document.querySelector('.modal-image');
 
-  var navButtonUlEl = document.querySelector('.nav-bar > ul');
   var windowWidth = document.body.clientWidth;
-  var navButtonWidth = parseFloat(document.querySelector('.nav-button').getBoundingClientRect().width);
-  var navButtonGutterWidth = parseFloat(8 * 9 / 10);
-  var navButtonUlElOffset = 0;;
+  var navButtonWidth = document.querySelector('.nav-button').getBoundingClientRect().width;
+  var navButtonGutter = 8;
+  var centreXOffset = (windowWidth / 2) - (navButtonWidth / 2);
 
   var setIsDesktop = function() {
     isDesktop = document.body.clientWidth > 1023 ? true : false;
@@ -56,19 +55,21 @@
   }
 
   var runnerUpClickHandler = function(e) {
+    console.log('runnerUp');
     var target = e.target;
     if (e.target.classList.contains('runner-up-info')) {
       target = e.target.parentNode;
     }
 
     var id = target.id;
-    populateModal(id);
+    shoeInModal = document.getElementById(id);
+    populateModal();
     toggleModal(true);
   }
 
 
   var toggleModal = function(openModal) {
-    if (openModal && shoeInModal) {
+    if (openModal) {
       bodyEl.classList.add('modal-open');
       shoeInModal.classList.add('active');
     } else {
@@ -78,13 +79,7 @@
     }
   }
 
-  var populateModal = function(id) {
-    if (!id) {
-      return;
-    }
-
-    shoeInModal = document.getElementById(id);
-
+  var populateModal = function() {
     var name = shoeInModal.querySelector('.runner-up-name span').innerHTML;
     var copy = shoeInModal.querySelector('.runner-up-copy').innerHTML;
     var imgSrc = shoeInModal.querySelector('.runner-up-image img').src;
@@ -109,11 +104,12 @@
       return;
     }
 
-    var activeNavButtonOffset = document.querySelector('.nav-button.active').getBoundingClientRect().x;
-    var centreXOffset = (windowWidth / 2) - (navButtonWidth / 2);
-    navButtonUlElOffset = centreXOffset - activeNavButtonOffset - navButtonGutterWidth + navButtonUlElOffset;
-    console.log(navButtonUlElOffset);
-    navButtonUlEl.style.transform = 'translateX(' + navButtonUlElOffset + 'px)';
+    var button = document.querySelector('.nav-button.active');
+    var index = button.dataset.index;
+
+    var ulTranslateX = centreXOffset - (index * (navButtonWidth + navButtonGutter));
+    var ul = document.querySelector('.nav-bar > ul');
+    ul.style.transform = 'translateX(' + ulTranslateX + 'px)';
   }
 
   window.onload = function() {
