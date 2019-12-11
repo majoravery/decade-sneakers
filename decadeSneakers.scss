@@ -539,18 +539,24 @@ main {
 }
 
 .modal-close-button {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  right: 0;
-  width: 16px;
-  height: 16px;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
-  padding: 16px;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  line-height: 2em;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  cursor: pointer;
+  display: flex;
   font-size: 20px;
+  height: 16px;
+  justify-content: center;
+  line-height: 2em;
+  padding: 16px;
+  position: fixed;
+  right: 16px;
+  top: 16px;
+  width: 16px;
+
+  @include mq($from: tablet) {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
