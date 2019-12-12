@@ -106,7 +106,7 @@
 
     var index = document.querySelector('.nav-item.active').dataset.index;
     
-    document.querySelector('.nav-bar').scrollTo({
+    document.querySelector('.nav-bar').scroll({
       left: index * (navButtonWidth + navButtonGutter),
       behavior: 'smooth',
     });
@@ -117,5 +117,9 @@
     addNavButtonClickHandlers();
     addModalCloseButtonClickHandler();
     snapActiveNavButtonToCenter();
+  }
+
+  window.onresize = function() {
+    setIsDesktop();
   }
 })();
