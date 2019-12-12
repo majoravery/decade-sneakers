@@ -1,3 +1,26 @@
+// The MIT License (MIT)
+
+// Copyright (c) 2013 Dustan Kasten
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy of
+// this software and associated documentation files (the "Software"), to deal in
+// the Software without restriction, including without limitation the rights to
+// use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+// the Software, and to permit persons to whom the Software is furnished to do so,
+// subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+// FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+// COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+// IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+// CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+"use strict";function polyfill(){var f=window,n=document;if(!("scrollBehavior"in n.documentElement.style&&!0!==f.__forceSmoothScrollPolyfill__)){var o,t=f.HTMLElement||f.Element,s=468,p={scroll:f.scroll||f.scrollTo,scrollBy:f.scrollBy,elementScroll:t.prototype.scroll||d,scrollIntoView:t.prototype.scrollIntoView},a=f.performance&&f.performance.now?f.performance.now.bind(f.performance):Date.now,l=(o=f.navigator.userAgent,new RegExp(["MSIE ","Trident/","Edge/"].join("|")).test(o)?1:0);f.scroll=f.scrollTo=function(){void 0!==arguments[0]&&(!0!==e(arguments[0])?c.call(f,n.body,void 0!==arguments[0].left?~~arguments[0].left:f.scrollX||f.pageXOffset,void 0!==arguments[0].top?~~arguments[0].top:f.scrollY||f.pageYOffset):p.scroll.call(f,void 0!==arguments[0].left?arguments[0].left:"object"!=typeof arguments[0]?arguments[0]:f.scrollX||f.pageXOffset,void 0!==arguments[0].top?arguments[0].top:void 0!==arguments[1]?arguments[1]:f.scrollY||f.pageYOffset))},f.scrollBy=function(){void 0!==arguments[0]&&(e(arguments[0])?p.scrollBy.call(f,void 0!==arguments[0].left?arguments[0].left:"object"!=typeof arguments[0]?arguments[0]:0,void 0!==arguments[0].top?arguments[0].top:void 0!==arguments[1]?arguments[1]:0):c.call(f,n.body,~~arguments[0].left+(f.scrollX||f.pageXOffset),~~arguments[0].top+(f.scrollY||f.pageYOffset)))},t.prototype.scroll=t.prototype.scrollTo=function(){if(void 0!==arguments[0])if(!0!==e(arguments[0])){var o=arguments[0].left,t=arguments[0].top;c.call(this,this,void 0===o?this.scrollLeft:~~o,void 0===t?this.scrollTop:~~t)}else{if("number"==typeof arguments[0]&&void 0===arguments[1])throw new SyntaxError("Value could not be converted");p.elementScroll.call(this,void 0!==arguments[0].left?~~arguments[0].left:"object"!=typeof arguments[0]?~~arguments[0]:this.scrollLeft,void 0!==arguments[0].top?~~arguments[0].top:void 0!==arguments[1]?~~arguments[1]:this.scrollTop)}},t.prototype.scrollBy=function(){void 0!==arguments[0]&&(!0!==e(arguments[0])?this.scroll({left:~~arguments[0].left+this.scrollLeft,top:~~arguments[0].top+this.scrollTop,behavior:arguments[0].behavior}):p.elementScroll.call(this,void 0!==arguments[0].left?~~arguments[0].left+this.scrollLeft:~~arguments[0]+this.scrollLeft,void 0!==arguments[0].top?~~arguments[0].top+this.scrollTop:~~arguments[1]+this.scrollTop))},t.prototype.scrollIntoView=function(){if(!0!==e(arguments[0])){var o=function(o){for(;o!==n.body&&!1===(void 0,l=r(t=o,"Y")&&i(t,"Y"),e=r(t,"X")&&i(t,"X"),l||e);)o=o.parentNode||o.host;var t,l,e;return o}(this),t=o.getBoundingClientRect(),l=this.getBoundingClientRect();o!==n.body?(c.call(this,o,o.scrollLeft+l.left-t.left,o.scrollTop+l.top-t.top),"fixed"!==f.getComputedStyle(o).position&&f.scrollBy({left:t.left,top:t.top,behavior:"smooth"})):f.scrollBy({left:l.left,top:l.top,behavior:"smooth"})}else p.scrollIntoView.call(this,void 0===arguments[0]||arguments[0])}}function d(o,t){this.scrollLeft=o,this.scrollTop=t}function e(o){if(null===o||"object"!=typeof o||void 0===o.behavior||"auto"===o.behavior||"instant"===o.behavior)return!0;if("object"==typeof o&&"smooth"===o.behavior)return!1;throw new TypeError("behavior member of ScrollOptions "+o.behavior+" is not a valid value for enumeration ScrollBehavior.")}function r(o,t){return"Y"===t?o.clientHeight+l<o.scrollHeight:"X"===t?o.clientWidth+l<o.scrollWidth:void 0}function i(o,t){var l=f.getComputedStyle(o,null)["overflow"+t];return"auto"===l||"scroll"===l}function v(o){var t,l,e,r,i=(a()-o.startTime)/s;r=i=1<i?1:i,t=.5*(1-Math.cos(Math.PI*r)),l=o.startX+(o.x-o.startX)*t,e=o.startY+(o.y-o.startY)*t,o.method.call(o.scrollable,l,e),l===o.x&&e===o.y||f.requestAnimationFrame(v.bind(f,o))}function c(o,t,l){var e,r,i,s,c=a();s=o===n.body?(r=(e=f).scrollX||f.pageXOffset,i=f.scrollY||f.pageYOffset,p.scroll):(r=(e=o).scrollLeft,i=o.scrollTop,d),v({scrollable:e,method:s,startTime:c,startX:r,startY:i,x:t,y:l})}}"object"==typeof exports&&"undefined"!=typeof module?module.exports={polyfill:polyfill}:polyfill();
+
 (function() {
   var isDesktop;
 
@@ -36,7 +59,6 @@
     });
   }
   
-
   var navButtonClickHandler = function(e) {
     e.stopPropagation();
     e.preventDefault();
@@ -46,7 +68,7 @@
     
     var sectionOffset = document.getElementById(e.target.innerHTML).getBoundingClientRect().top;
 
-    window.scrollTo({
+    window.scroll({
       top: parseInt(window.pageYOffset) + parseInt(sectionOffset),
       behavior: 'smooth'
     });
@@ -55,7 +77,6 @@
   }
 
   var runnerUpClickHandler = function(e) {
-    console.log('runnerUp');
     var target = e.target;
     if (e.target.classList.contains('runner-up-info')) {
       target = e.target.parentNode;
@@ -66,7 +87,6 @@
     populateModal();
     toggleModal(true);
   }
-
 
   var toggleModal = function(openModal) {
     if (openModal) {
@@ -116,7 +136,7 @@
     setIsDesktop();
     addNavButtonClickHandlers();
     addModalCloseButtonClickHandler();
-    snapActiveNavButtonToCenter();
+    // snapActiveNavButtonToCenter();
   }
 
   window.onresize = function() {

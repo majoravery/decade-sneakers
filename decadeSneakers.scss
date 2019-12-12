@@ -346,41 +346,45 @@ main {
   text-align: center;
   z-index: 1;
 
-  // &:before,
-  // &:after {
-  //   content: ' ';
-  //   bottom: 0;
-  //   display: block;
-  //   height: 100%;
-  //   position: absolute;
-  //   top: 0;
-  //   width: 48px;
-  //   z-index: 1;
+  &:before,
+  &:after {
+    content: ' ';
+    bottom: 0;
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 48px;
+    z-index: 1;
 
-  //   @include mq($from: tablet) {
-  //     display: none;
-  //   }
-  // }
+    @include mq($from: tablet) {
+      display: none;
+    }
+  }
 
-  // &:before {
-  //   background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
-  //   left: 0;
-  // }
+  &:before {
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    left: 0;
+  }
 
-  // &:after {
-  //   background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
-  //   right: 0;
-  // }
+  &:after {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    right: 0;
+  }
 
   @include mq($from: desktop) {
     padding-bottom: 16px;
   }
 }
 
+.nav-bar-container {
+  position: relative;
+}
+
 .nav-bar {
   overflow-x: scroll;
   position: relative;
-
+  
   @include mq($from: desktop) {
     @include wrapper();
 
@@ -390,10 +394,9 @@ main {
 
 .nav-items {
   box-sizing: content-box;
-  display: flex;
+  display: inline-flex;
   list-style-type: none;
   margin: 0;
-  min-width: 842px; // width of all buttons and gutter
   padding: 0 calc(50vw - 38.5px); // 38.5 is half of button width (77px), to provide padding on the sides so the first/last button is in the centre when scrolled to the extremes
 
   @include mq($from: desktop) {
@@ -405,13 +408,12 @@ main {
 
 .nav-item {
   cursor: pointer;
-  display: inline-block;
+  margin: 0;
   width: 77px;
-  
+
   & + & {
     margin-left: 8px;
   }
-  width: 77px;
 
   &.active .nav-button {
     background-color: black;
