@@ -75,9 +75,10 @@ main {
 }
 
 .hero-image {
-  width: 100%;
   border: 1px solid black;
   font-size: 0;
+  padding: 0 !important;
+  width: 100%;
 
   @include mq($from: tablet) {
     @include wrapper();
@@ -152,6 +153,9 @@ main {
   border-right: 1px solid black;
   border-bottom: 1px solid black;
   cursor: pointer;
+  height: 100%;
+  max-height: 450px;
+  overflow: hidden;
   position: relative;
   width: 100%;
 
@@ -180,20 +184,24 @@ main {
 
 .runner-up-image {
   align-items: center;
+  background: linear-gradient(#ccc, #fff);
   display: flex;
   font-size: 0;
-  height: 450px; // TODO: change obvs
+  height: 100%;
   justify-content: center;
   position: relative;
   width: 100%;
-  background: linear-gradient(#ccc, #fff);
+
+  @include mq($until: tablet) {
+    width: 100vw;
+  }
 
   img {
     height: auto;
     object-fit: cover;
     transform: translateY(0);
     transition: transform 0.3s ease-in-out;
-    width: 80%;
+    width: 100%;
   }
 }
 
@@ -338,31 +346,31 @@ main {
   text-align: center;
   z-index: 1;
 
-  &:before,
-  &:after {
-    content: ' ';
-    bottom: 0;
-    display: block;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    width: 48px;
-    z-index: 1;
+  // &:before,
+  // &:after {
+  //   content: ' ';
+  //   bottom: 0;
+  //   display: block;
+  //   height: 100%;
+  //   position: absolute;
+  //   top: 0;
+  //   width: 48px;
+  //   z-index: 1;
 
-    @include mq($from: tablet) {
-      display: none;
-    }
-  }
+  //   @include mq($from: tablet) {
+  //     display: none;
+  //   }
+  // }
 
-  &:before {
-    background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
-    left: 0;
-  }
+  // &:before {
+  //   background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  //   left: 0;
+  // }
 
-  &:after {
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
-    right: 0;
-  }
+  // &:after {
+  //   background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  //   right: 0;
+  // }
 
   @include mq($from: desktop) {
     padding-bottom: 16px;
@@ -370,57 +378,61 @@ main {
 }
 
 .nav-bar {
-  width: 100%;
   -webkit-overflow-scrolling: touch;
   overflow-x: scroll;
-  padding-left: 16px;
-  padding-top: 0;
   position: relative;
+  width: 100%;
 
   @include mq($from: desktop) {
     @include wrapper();
 
     overflow-x: auto;
-    padding-left: 0;
   }
+}
 
-  ul {
-    box-sizing: content-box;
-    display: flex;
-    list-style-type: none;
-    margin: 0;
-    min-width: 864px;
-    padding: 0 16px 0 0;
-    transform: translateY(0);
-    transition: transform 0.5s ease;
+.nav-items {
+  border: 1px solid black;
+  box-sizing: content-box;
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  min-width: 842px; // width of all buttons and gutter
+  padding: 0 100vw;
+  transform: translateY(0);
+  transition: transform 0.5s ease;
 
-    @include mq($from: tablet) {
-      padding: 0;
-      justify-content: center;
-    }
+  @include mq($from: desktop) {
+    justify-content: center;
+    padding: 0;
   }
 }
 
 .nav-item {
+  cursor: pointer;
   display: inline-block;
+  width: 77px;
 
   & + & {
     margin-left: 8px;
   }
+
+  &.active .nav-button {
+    background-color: black;
+    color: white;
+  }
 }
 
 .nav-button {
-  display: inline-block;
   background-color: white;
   border-radius: 32px;
   border: 1px solid black;
   color: black;
+  display: inline-block;
   font-size: 1em;
   padding: 12px 20px;
   text-decoration: none;
   transition: background-color 0.3s ease, color 0.3s ease;
 
-  &.active,
   &:hover {
     background-color: black;
     color: white;
