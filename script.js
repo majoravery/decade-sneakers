@@ -105,13 +105,11 @@
     }
 
     var index = document.querySelector('.nav-item.active').dataset.index;
-    var liOffset = document.querySelector('.nav-item.active').getBoundingClientRect().x;
-
-
-    var ul = document.querySelector('.nav-items');
-    var ulOffset = ul.getBoundingClientRect().x;
-    var ulTranslateX = centreXOffset - liOffset + ulOffset; // (index * (navButtonWidth + navButtonGutter));
-    ul.style.transform = 'translateX(' + ulTranslateX + 'px)';
+    
+    document.querySelector('.nav-bar').scrollTo({
+      left: index * (navButtonWidth + navButtonGutter),
+      behavior: 'smooth',
+    });
   }
 
   window.onload = function() {

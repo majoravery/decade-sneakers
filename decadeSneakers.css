@@ -446,10 +446,8 @@ main {
 }
 
 .nav-bar {
-  -webkit-overflow-scrolling: touch;
   overflow-x: scroll;
   position: relative;
-  width: 100%;
 }
 @media (min-width: 64em) {
   .nav-bar {
@@ -487,26 +485,25 @@ main {
 }
 
 .nav-items {
-  border: 1px solid black;
   box-sizing: content-box;
   display: flex;
   list-style-type: none;
   margin: 0;
   min-width: 842px;
-  padding: 0 100vw;
-  transform: translateY(0);
-  transition: transform 0.5s ease;
+  padding: 0 calc(50vw - 38.5px);
 }
 @media (min-width: 64em) {
   .nav-items {
     justify-content: center;
     padding: 0;
+    width: 100%;
   }
 }
 
 .nav-item {
   cursor: pointer;
   display: inline-block;
+  width: 77px;
   width: 77px;
 }
 .nav-item + .nav-item {

@@ -378,10 +378,8 @@ main {
 }
 
 .nav-bar {
-  -webkit-overflow-scrolling: touch;
   overflow-x: scroll;
   position: relative;
-  width: 100%;
 
   @include mq($from: desktop) {
     @include wrapper();
@@ -391,19 +389,17 @@ main {
 }
 
 .nav-items {
-  border: 1px solid black;
   box-sizing: content-box;
   display: flex;
   list-style-type: none;
   margin: 0;
   min-width: 842px; // width of all buttons and gutter
-  padding: 0 100vw;
-  transform: translateY(0);
-  transition: transform 0.5s ease;
+  padding: 0 calc(50vw - 38.5px); // 38.5 is half of button width (77px), to provide padding on the sides so the first/last button is in the centre when scrolled to the extremes
 
   @include mq($from: desktop) {
     justify-content: center;
     padding: 0;
+    width: 100%;
   }
 }
 
@@ -411,10 +407,11 @@ main {
   cursor: pointer;
   display: inline-block;
   width: 77px;
-
+  
   & + & {
     margin-left: 8px;
   }
+  width: 77px;
 
   &.active .nav-button {
     background-color: black;
