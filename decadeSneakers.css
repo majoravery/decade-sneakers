@@ -475,6 +475,7 @@ main {
 .nav-bar {
   overflow-x: scroll;
   position: relative;
+  -webkit-overflow-scrolling: touch;
 }
 @media (min-width: 64em) {
   .nav-bar {
@@ -617,6 +618,7 @@ main {
   position: relative;
   width: 100%;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 @media (min-width: 40em) {
   .modal {
