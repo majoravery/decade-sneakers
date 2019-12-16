@@ -143,6 +143,7 @@ main {
 
 .hero-image {
   border: 1px solid black;
+  box-sizing: border-box;
   font-size: 0;
   padding: 0 !important;
   width: 100%;
@@ -357,8 +358,14 @@ main {
   }
 }
 
+.moment + .moment {
+  flex-direction: row-reverse;
+  margin-top: 48px;
+}
+
 .moment-image {
   border: 1px solid black;
+  box-sizing: border-box;
   font-size: 0;
   height: 600px;
   position: relative;
