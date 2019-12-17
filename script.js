@@ -89,6 +89,8 @@
 
     snapButtonToCenter(activeYear);
     window.onscroll = onScrollHandler;
+
+    history.pushState({ year: year }, "", window.location.origin + window.location.pathname + '#' + year);
   }
 
   var runnerUpClickHandler = function(e) {
