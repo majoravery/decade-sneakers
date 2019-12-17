@@ -136,15 +136,11 @@
       }
     } else {
       bodyEl.classList.remove('modal-open');
-
-      if (isShoe) {
+      if (shoeInModal) {
         shoeInModal.classList.remove('active');
-        modalEl.classList.remove('runner-up-populated');
       }
-
-      if (isMoment) {
-        modalEl.classList.remove('moment-populated');
-      }
+      modalEl.classList.remove('runner-up-populated');
+      modalEl.classList.remove('moment-populated');
       clearModal();
     }
   }
