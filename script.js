@@ -109,7 +109,7 @@
     var id = target.id;
     shoeInModal = document.getElementById(id);
     populateModalWithRunnerUp();
-    toggleModal(true);
+    toggleModal(true, true, false);
   }
 
   var momentClickHandler = function(e) {
@@ -119,7 +119,7 @@
     }
 
     populateModalWithMoment(target);
-    toggleModal(true);
+    toggleModal(true, false, true);
   }
 
   var toggleModal = function(openModal, isShoe, isMoment) {

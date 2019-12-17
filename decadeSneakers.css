@@ -602,7 +602,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   height: calc(100vh - 32px);
-  margin: 0.8823529412rem;
+  margin: 18.8px;
   max-height: 700px;
   padding: 0;
   position: relative;
@@ -614,7 +614,7 @@ main {
   .modal {
     padding-left: 0.8823529412rem;
     padding-right: 0.8823529412rem;
-    height: 90vh;
+    height: 100%;
     max-width: 959px;
     overflow-y: hidden;
   }
@@ -665,6 +665,10 @@ main {
 .modal.runner-up-populated .modal-info-wrap {
   justify-content: flex-end;
 }
+.modal.moment-populated .modal-info-name {
+  line-height: 1.2;
+}
+
 .modal-image-wrap {
   align-items: center;
   background: linear-gradient(#eee, #fff);
@@ -708,6 +712,8 @@ main {
   .modal-info-wrap {
     border-top: 0;
     border-left: 1px solid black;
+    height: 100%;
+    overflow-y: scroll;
     padding: 24px;
   }
 }
@@ -715,11 +721,15 @@ main {
 .modal-info-name {
   font-size: 1em;
   font-weight: normal;
-  line-height: 1em;
+  line-height: 1;
   margin: 0;
   margin-bottom: 16px;
-  max-width: calc(100% - 66px);
   text-transform: uppercase;
+}
+@media (min-width: 40em) {
+  .modal-info-name {
+    max-width: calc(100% - 66px);
+  }
 }
 
 .modal-info-copy {
@@ -747,6 +757,7 @@ main {
 }
 @media (min-width: 40em) {
   .modal-close-button {
+    background-color: white;
     position: absolute;
     right: 0;
     top: 0;

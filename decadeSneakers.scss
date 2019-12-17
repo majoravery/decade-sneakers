@@ -495,7 +495,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   height: calc(100vh - 32px);
-  margin: rem($content-offset-mobile-small);
+  margin: 18.8px; // dont want the rem to affect this
   max-height: 700px;
   padding: 0;
   position: relative;
@@ -506,7 +506,7 @@ main {
   @include mq($from: tablet) {
     @include wrapper();
 
-    height: 90vh;
+    height: 100%;
     max-width: 959px; // FIXME: honestly dk why lol
     overflow-y: hidden;
   }
@@ -536,7 +536,9 @@ main {
   }
 
   &.moment-populated {
-
+    .modal-info-name {
+      line-height: 1.2;
+    }
   }
 }
 
@@ -582,6 +584,8 @@ main {
   @include mq($from: tablet) {
     border-top: 0;
     border-left: 1px solid black;
+    height: 100%;
+    overflow-y: scroll;
     padding: 24px;
   }
 }
@@ -589,11 +593,14 @@ main {
 .modal-info-name {
   font-size: 1em;
   font-weight: normal;
-  line-height: 1em;
+  line-height: 1;
   margin: 0;
   margin-bottom: 16px;
-  max-width: calc(100% - 66px);
   text-transform: uppercase;
+  
+  @include mq($from: tablet) {
+    max-width: calc(100% - 66px);
+  }
 }
 
 .modal-info-copy {
@@ -620,6 +627,7 @@ main {
   width: 16px;
 
   @include mq($from: tablet) {
+    background-color: white;
     position: absolute;
     right: 0;
     top: 0;
