@@ -202,7 +202,7 @@
     }
     activeYearButtonEl = document.querySelector('.nav-item[data-year="' + activeYear + '"]');
     activeYearButtonEl.classList.add('active');
-
+    history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + '#' + activeYear);
   }
 
   var disableHighlightActiveYearButton = function() {
@@ -223,8 +223,6 @@
     
     highlightActiveYearButton();
     // snapButtonToCenter();
-
-    history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + '#' + activeYear);
   }
 
   var snapButtonToCenter = function(year) {
