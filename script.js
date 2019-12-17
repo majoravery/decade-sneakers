@@ -37,26 +37,24 @@
   var navButtonGutter = 8;
   var centreXOffset = (windowWidth / 2) - (navButtonWidth / 2);
 
-  var yearSectionTriggers = [];
+  var yearSectionTriggers = {};
 
   var setIsDesktop = function() {
-    console.log('setIsDesktop');
     isDesktop = document.body.clientWidth >= 1024 ? true : false;
   }
 
   var setYearSectionScrollPositionTriggers = function() {
-    console.log('setYearSectionScrollPositionTriggers');
-    yearSectionTriggers = [];
+    yearSectionTriggers = {};
+    var scrollTop = window.scrollY - (window.innerHeight / 2);
     var yearSections = document.querySelectorAll('.section-wrap[id]');
     yearSections.forEach(function(section) {
-      var year = section.getAttribute('id');
-      var top = section.getBoundingClientRect().x;
-      yearSectionTriggers.push({ [top]: year });
-    }) 
+      var year = parseInt(section.getAttribute('id'), 10);
+      var top = scrollTop + section.getBoundingClientRect().y;
+      yearSectionTriggers[top] = year;
+    })
   }
 
   var addNavButtonClickHandlers = function() {
-    console.log('addNavButtonClickHandlers');
     var navButtons = document.querySelectorAll('.nav-button');
     navButtons.forEach(function(btn) {
       btn.addEventListener('click', navButtonClickHandler);
@@ -69,7 +67,6 @@
   }
 
   var addModalCloseButtonClickHandler = function() {
-    console.log('addModalCloseButtonClickHandler');
     var modalCloseButtonEl = document.querySelector('.modal-close-button');
     modalCloseButtonEl.addEventListener('click', function() {
       toggleModal(false);
@@ -77,24 +74,24 @@
   }
   
   var navButtonClickHandler = function(e) {
-    console.log('navButtonClickHandler');
+    window.onscroll = function() {};
     e.stopPropagation();
     e.preventDefault();
     var year = e.target.parentNode.dataset.year; // e.target is the <a>
     highlightActiveYearButton(year);
 
     var sectionOffset = document.getElementById(e.target.innerHTML).getBoundingClientRect().top;
-
+    
     window.scroll({
       top: parseInt(window.pageYOffset) + parseInt(sectionOffset),
       behavior: 'smooth'
     });
 
     snapButtonToCenter(activeYear);
+    window.onscroll = onScrollHandler;
   }
 
   var runnerUpClickHandler = function(e) {
-    console.log('runnerUpClickHandler');
     var target = e.target;
     if (e.target.classList.contains('runner-up-info')) {
       target = e.target.parentNode;
@@ -107,7 +104,6 @@
   }
 
   var toggleModal = function(openModal) {
-    console.log('toggleModal');
     if (openModal) {
       bodyEl.classList.add('modal-open');
       shoeInModal.classList.add('active');
@@ -119,7 +115,6 @@
   }
 
   var populateModal = function() {
-    console.log('populateModal');
     var name = shoeInModal.querySelector('.runner-up-name span').innerHTML;
     var copy = shoeInModal.querySelector('.runner-up-copy').innerHTML;
     var imgSrc = shoeInModal.querySelector('.runner-up-image img').src;
@@ -130,26 +125,26 @@
   }
   
   var clearModal = function() {
-    console.log('clearModal');
     modalNameEl.innerHTML = '';
     modalCopyEl.innerHTML = '';
     modalImageEl.src = '';
   }
 
   var animateModal = function() {
-    console.log('animateModal');
 
   }
 
   var getActiveYearBasedOnScrollPosition = function() {
-    console.log('getActiveYearBasedOnScrollPosition');
-    console.log(yearSectionTriggers)
     if (!yearSectionTriggers) {
       return;
     }
     var y = window.scrollY;
     var triggers = Object.keys(yearSectionTriggers);
     for (var i = 0; i < triggers.length; i++) {
+      if (i + 1 === triggers.length) {
+        // for year 2019
+        return 2019;
+      }
       if (y >= triggers[i] && y < triggers[i + 1]) {
         return yearSectionTriggers[triggers[i]];
       }
@@ -157,20 +152,19 @@
   }
 
   var highlightActiveYearButton = function(year) {
-    console.log('highlightActiveYearButton');
     if (!year) {
       return;
     }
     activeYear = year;
-    console.log({activeYear});
-    activeYearButtonEl.classList.remove('active');
+    if (activeYearButtonEl) {
+      activeYearButtonEl.classList.remove('active');
+    }
     activeYearButtonEl = document.querySelector('.nav-item[data-year="' + activeYear + '"]');
     activeYearButtonEl.classList.add('active');
 
   }
 
   var snapButtonToCenter = function(year = 2010) {
-    console.log('snapButtonToCenter');
     if (isDesktop) {
       return;
     }
@@ -183,6 +177,16 @@
     });
   }
 
+  var onScrollHandler = function() {
+    // TODO: throttle
+    var currentYear = getActiveYearBasedOnScrollPosition();
+    if (currentYear !== activeYear) {
+      highlightActiveYearButton(currentYear);
+      snapButtonToCenter(currentYear);
+      activeYear = currentYear;
+    }
+  }
+
   window.onload = function() {
     setIsDesktop();
 
@@ -192,6 +196,7 @@
 
     setYearSectionScrollPositionTriggers();
     activeYear = getActiveYearBasedOnScrollPosition();
+    highlightActiveYearButton(activeYear);
   }
 
   window.onresize = function() {
@@ -200,13 +205,5 @@
     activeYear = getActiveYearBasedOnScrollPosition();
   }
 
-  window.onscroll = function() {
-    // TODO: throttle
-    var currentYear = getActiveYearBasedOnScrollPosition();
-    if (currentYear !== activeYear) {
-      highlightActiveYearButton(currentYear);
-      snapButtonToCenter(currentYear);
-      activeYear = currentYear;
-    }
-  }
+  window.onscroll = onScrollHandler;
 })();
