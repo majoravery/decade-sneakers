@@ -277,7 +277,7 @@ main {
 
 .runner-up-image {
   align-items: center;
-  background: linear-gradient(#ccc, #fff);
+  background: linear-gradient(#eee, #fff);
   display: flex;
   font-size: 0;
   height: 100%;
@@ -323,7 +323,7 @@ main {
   bottom: 0;
   font-size: 1em;
   font-weight: normal;
-  line-height: 1em;
+  line-height: 1.3em;
   margin: 0;
   padding: 16px;
   position: absolute;
@@ -339,7 +339,7 @@ main {
 }
 
 .runner-ups + .moment {
-  margin-top: 48px;
+  margin-top: 56px;
 }
 
 .moment {
@@ -405,6 +405,12 @@ main {
   padding-top: 16px;
   text-align: justify;
 }
+.moment-copy > p:first-child {
+  margin-top: 0;
+}
+.moment-copy > p:last-child {
+  margin-bottom: 0;
+}
 
 .moment-read-more {
   background-color: white;
@@ -415,7 +421,7 @@ main {
   font-size: 1em;
   margin-top: 16px;
   outline: none;
-  padding: 16px 20px;
+  padding: 12px 20px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 @media (min-width: 40em) {
@@ -597,6 +603,7 @@ main {
     padding-left: 0.8823529412rem;
     padding-right: 0.8823529412rem;
     height: 40vw;
+    max-width: 959px;
     overflow-y: auto;
   }
 }
@@ -640,7 +647,7 @@ main {
 
 .modal-image-wrap {
   align-items: center;
-  background: linear-gradient(#ccc, #fff);
+  background: linear-gradient(#eee, #fff);
   display: flex;
   font-size: 0;
   height: 70%;
@@ -725,6 +732,13 @@ main {
     right: 0;
     top: 0;
   }
+}
+.modal-close-button:before {
+  content: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZT0iIzAwMCI+CiAgICA8bGluZSB4MT0iMTcuMjUiIHgyPSIuNzUiIHkxPSIuNzUiIHkyPSIxNy4yNSIvPgogICAgPGxpbmUgeDE9Ii43NSIgeDI9IjE3LjI1IiB5MT0iLjc1IiB5Mj0iMTcuMjUiLz4KICA8L2c+Cjwvc3ZnPgo=);
+  width: 18px;
+  height: 18px;
+  font-size: 0;
+  line-height: 18px;
 }
 
 /*# sourceMappingURL=decadeSneakers.css.map */
