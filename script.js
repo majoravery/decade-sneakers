@@ -74,23 +74,16 @@
   }
   
   var navButtonClickHandler = function(e) {
-    window.onscroll = function() {};
     e.stopPropagation();
     e.preventDefault();
-    var year = e.target.parentNode.dataset.year; // e.target is the <a>
-    highlightActiveYearButton(year);
-
-    var sectionOffset = document.getElementById(e.target.innerHTML).getBoundingClientRect().top;
+    activeYear = e.target.parentNode.dataset.year; // e.target is the <a>
     
-    window.scroll({
-      top: parseInt(window.pageYOffset) + parseInt(sectionOffset),
-      behavior: 'smooth'
+    // i thought this callback system would solve the problems with the buttons highlighting as it scrolls
+    // but it doesnt, and it still works  so im gonna leave it
+    var fns = [disableHighlightActiveYearButton, navigateToYear, enableHighlightActiveYearButton];
+    fns.forEach(function(fn) {
+      fn();
     });
-
-    snapButtonToCenter(activeYear);
-    window.onscroll = onScrollHandler;
-
-    history.pushState({ year: year }, "", window.location.origin + window.location.pathname + '#' + year);
   }
 
   var runnerUpClickHandler = function(e) {
@@ -153,11 +146,7 @@
     }
   }
 
-  var highlightActiveYearButton = function(year) {
-    if (!year) {
-      return;
-    }
-    activeYear = year;
+  var highlightActiveYearButton = function() {
     if (activeYearButtonEl) {
       activeYearButtonEl.classList.remove('active');
     }
@@ -166,9 +155,35 @@
 
   }
 
-  var snapButtonToCenter = function(year = 2010) {
+  var disableHighlightActiveYearButton = function() {
+    window.removeEventListener('scroll', onScrollHandler);
+  }
+
+  var enableHighlightActiveYearButton = function() {
+    window.addEventListener('scroll', onScrollHandler);
+  }
+
+  var navigateToYear = function() {
+    var sectionOffset = document.getElementById(activeYear).getBoundingClientRect().top;
+    
+    window.scroll({
+      top: parseInt(window.pageYOffset) + parseInt(sectionOffset),
+      behavior: 'smooth'
+    });
+    
+    highlightActiveYearButton();
+    snapButtonToCenter();
+
+    history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + '#' + activeYear);
+  }
+
+  var snapButtonToCenter = function(year) {
     if (isDesktop) {
       return;
+    }
+
+    if (!year) {
+      year = activeYear;
     }
 
     var index = document.querySelector('.nav-item[data-year="' + year + '"]').dataset.index;
@@ -183,9 +198,9 @@
     // TODO: throttle
     var currentYear = getActiveYearBasedOnScrollPosition();
     if (currentYear !== activeYear) {
-      highlightActiveYearButton(currentYear);
-      snapButtonToCenter(currentYear);
       activeYear = currentYear;
+      highlightActiveYearButton();
+      snapButtonToCenter();
     }
   }
 
@@ -198,7 +213,9 @@
 
     setYearSectionScrollPositionTriggers();
     activeYear = getActiveYearBasedOnScrollPosition();
-    highlightActiveYearButton(activeYear);
+    highlightActiveYearButton();
+
+    enableHighlightActiveYearButton();
   }
 
   window.onresize = function() {
@@ -206,6 +223,4 @@
     setYearSectionScrollPositionTriggers();
     activeYear = getActiveYearBasedOnScrollPosition();
   }
-
-  window.onscroll = onScrollHandler;
 })();
