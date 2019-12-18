@@ -75,10 +75,10 @@
       ru.addEventListener('click', runnerUpClickHandler);
       if (window.dataLayer) {
         window.dataLayer.push({
-          event: (data.category + "." + data.action).replace(/\s/g, ''),
-          category: subscribe_location,
-          action: 'Subscribe',
-          label: 'Newsletter'
+          // event: (data.category + "." + data.action).replace(/\s/g, ''),
+          // category: subscribe_location,
+          // action: 'Subscribe',
+          // label: 'Newsletter'
         });
       }
     });
@@ -88,10 +88,10 @@
       mrm.addEventListener('click', momentClickHandler);
       if (window.dataLayer) {
         window.dataLayer.push({
-          event: (data.category + "." + data.action).replace(/\s/g, ''),
-          category: subscribe_location,
-          action: 'Subscribe',
-          label: 'Newsletter'
+          // event: (data.category + "." + data.action).replace(/\s/g, ''),
+          // category: subscribe_location,
+          // action: 'Subscribe',
+          // label: 'Newsletter'
         });
       }
     });
