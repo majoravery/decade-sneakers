@@ -237,7 +237,7 @@
     var sectionOffset = document.getElementById(activeYear).getBoundingClientRect().top;
     
     window.scroll({
-      top: parseInt(window.pageYOffset) + parseInt(sectionOffset),
+      top: parseInt(window.pageYOffset) + parseInt(sectionOffset) + 77 + 16, // height of navbar and some padding"
       behavior: 'smooth'
     });
     

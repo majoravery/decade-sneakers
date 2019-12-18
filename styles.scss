@@ -102,6 +102,10 @@ main {
   }
 }
 
+.hero-image-placeholder {
+  padding-top: 66.66%;
+}
+
 .hero-image + .hero-info {
   margin-top: 24px;
 }
@@ -213,6 +217,10 @@ main {
   }
 }
 
+.runner-up-image-placeholder {
+  padding-top: 112.5%;
+}
+
 .runner-up-image-shadow {
   position: absolute;
   width: 75%;
@@ -291,6 +299,10 @@ main {
     height: 100%;
     object-fit: cover;
   }
+}
+
+.moment-image-placeholder {
+  padding-top: 100%;
 }
 
 .moment-image + .moment-info {
