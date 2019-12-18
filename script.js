@@ -24,6 +24,7 @@
 (function() {
   var isDesktop;
 
+  var isModalOpen = false;
   var shoeInModal;
   var activeYear;
   var activeYearButtonEl = document.querySelector('.nav-item.active');
@@ -123,6 +124,25 @@
     toggleModal(true, false, true);
   }
 
+  var outsideModalClickHandler = function(e) {
+    if (!isModalOpen) {
+      return;
+    }
+    // var modalRect = modalEl.getBoundingClientRect();
+    // console.log(e.clientX, e.clientY, modalRect);
+    // if (
+    //   e.clientX < modalRect.x ||
+    //   e.clientY < modalRect.y ||
+    //   e.clientX > (modalRect.x + modalRect.width) ||
+    //   e.clientY > (modalRect.y + modalRect.height)
+    // ) {
+    //   toggleModal(false);
+    // }
+    if (e.target.classList.contains('modal-wrap')) {
+        toggleModal(false);
+    }
+  }
+
   var toggleModal = function(openModal, isShoe, isMoment) {
     if (openModal) {
       bodyEl.classList.add('modal-open');
@@ -135,6 +155,8 @@
       if (isMoment) {
         modalEl.classList.add('moment-populated');
       }
+      document.body.addEventListener('click', outsideModalClickHandler);
+      isModalOpen = true;
     } else {
       bodyEl.classList.remove('modal-open');
       if (shoeInModal) {
@@ -143,6 +165,8 @@
       modalEl.classList.remove('runner-up-populated');
       modalEl.classList.remove('moment-populated');
       clearModal();
+      document.body.removeEventListener('click', outsideModalClickHandler);
+      isModalOpen = false;
     }
   }
 
@@ -182,24 +206,33 @@
     }
     var y = window.scrollY;
     var triggers = Object.keys(yearSectionTriggers);
+    let year = null;
     for (var i = 0; i < triggers.length; i++) {
-      if (i + 1 === triggers.length) {
-        // for year 2019
-        return 2019;
-      }
       if (y >= triggers[i] && y < triggers[i + 1]) {
-        return yearSectionTriggers[triggers[i]];
+        year = yearSectionTriggers[triggers[i]];
+      } else if (i + 1 === triggers.length && y >= triggers[i]) {
+        // for year 2019
+        year = 2019;
       }
     }
+    return year;
   }
 
   var highlightActiveYearButton = function() {
     if (activeYearButtonEl) {
       activeYearButtonEl.classList.remove('active');
     }
+    if (!activeYear) {
+      return;
+    }
     activeYearButtonEl = document.querySelector('.nav-item[data-year="' + activeYear + '"]');
     activeYearButtonEl.classList.add('active');
-    history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + '#' + activeYear);
+
+    if (activeYear) {
+      history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + '#' + activeYear);
+    } else {
+      history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname);
+    }
   }
 
   var disableHighlightActiveYearButton = function() {
@@ -254,7 +287,8 @@
 
     // TODO: throttle
     var currentYear = getActiveYearBasedOnScrollPosition();
-    if (currentYear !== activeYear) {
+    console.log(currentYear);
+    if (currentYear !== activeYear && currentYear !== null) {
       activeYear = currentYear;
       highlightActiveYearButton();
       snapButtonToCenter();

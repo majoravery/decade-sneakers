@@ -445,7 +445,7 @@ main {
 
 .nav-bar-wrap {
   background-color: white;
-  bottom: 0;
+  bottom: -1px;
   box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.1);
   display: block;
   left: 0;
@@ -792,6 +792,15 @@ main {
   100% {
     transform: scale(1);
   }
+}
+.intro-text {
+  font-size: 19px;
+  line-height: 28.5px;
+  margin-bottom: 72px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25%;
+  max-width: 680px;
 }
 
 /*# sourceMappingURL=decadeSneakers.css.map */
