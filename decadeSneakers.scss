@@ -36,7 +36,7 @@ body.modal-open {
     visibility: visible;
   }
 
-  .runner-up-image.active img {
+  .runner-up.active .runner-up-image img {
     transform: translateY(-10%);
   }
 }

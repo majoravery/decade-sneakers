@@ -58,7 +58,7 @@ body.modal-open:before {
 body.modal-open .modal-wrap {
   visibility: visible;
 }
-body.modal-open .runner-up-image.active img {
+body.modal-open .runner-up.active .runner-up-image img {
   transform: translateY(-10%);
 }
 
