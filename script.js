@@ -260,7 +260,7 @@
       return;
     }
 
-    if (!year) {
+    if (!year && activeYear) {
       year = activeYear;
     }
 
@@ -287,7 +287,6 @@
 
     // TODO: throttle
     var currentYear = getActiveYearBasedOnScrollPosition();
-    console.log(currentYear);
     if (currentYear !== activeYear && currentYear !== null) {
       activeYear = currentYear;
       highlightActiveYearButton();

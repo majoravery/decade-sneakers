@@ -191,10 +191,6 @@ main {
   position: relative;
   width: 100%;
 
-  @include mq($until: tablet) {
-    width: 100vw;
-  }
-
   img {
     height: auto;
     object-fit: cover;
@@ -274,7 +270,7 @@ main {
   border: 1px solid black;
   box-sizing: border-box;
   font-size: 0;
-  height: 600px;
+  height: 100%;
   position: relative;
 
   img {
@@ -612,6 +608,7 @@ main {
 
 .modal-close-button {
   align-items: center;
+  background-color: white;
   border-bottom: 1px solid black;
   border-left: 1px solid black;
   cursor: pointer;
@@ -622,12 +619,11 @@ main {
   line-height: 2em;
   padding: 16px;
   position: fixed;
-  right: 19px;
-  top: 16px;
+  right: 20px;
+  top: 19px;
   width: 16px;
 
   @include mq($from: tablet) {
-    background-color: white;
     position: absolute;
     right: 0;
     top: 0;
