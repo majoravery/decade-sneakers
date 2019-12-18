@@ -73,11 +73,27 @@
     var runnerUps = document.querySelectorAll('.runner-up[id]');
     runnerUps.forEach(function(ru) {
       ru.addEventListener('click', runnerUpClickHandler);
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: (data.category + "." + data.action).replace(/\s/g, ''),
+          category: subscribe_location,
+          action: 'Subscribe',
+          label: 'Newsletter'
+        });
+      }
     });
 
     var momentReadMores = document.querySelectorAll('.moment-read-more');
     momentReadMores.forEach(function(mrm) {
       mrm.addEventListener('click', momentClickHandler);
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: (data.category + "." + data.action).replace(/\s/g, ''),
+          category: subscribe_location,
+          action: 'Subscribe',
+          label: 'Newsletter'
+        });
+      }
     });
   }
 
@@ -237,7 +253,7 @@
     var sectionOffset = document.getElementById(activeYear).getBoundingClientRect().top;
     
     window.scroll({
-      top: parseInt(window.pageYOffset) + parseInt(sectionOffset) + 77 + 16, // height of navbar and some padding"
+      top: parseInt(window.pageYOffset) + parseInt(sectionOffset) - 77 - 16, // height of navbar and some padding"
       behavior: 'smooth'
     });
     

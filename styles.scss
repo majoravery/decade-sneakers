@@ -87,6 +87,9 @@ main {
 .hero-image {
   border: 1px solid black;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0;
   padding: 0 !important;
   width: 100%;
@@ -290,6 +293,9 @@ main {
 .moment-image {
   border: 1px solid black;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0;
   height: 100%;
   position: relative;
