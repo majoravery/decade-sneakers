@@ -113,6 +113,7 @@
   }
 
   var momentClickHandler = function(e) {
+    e.stopPropagation();
     var target = e.target;
     if (e.target.classList.contains('moment-read-more')) {
       target = e.target.parentNode.parentNode; // get div.moment
