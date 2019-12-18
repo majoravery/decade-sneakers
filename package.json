@@ -12,7 +12,7 @@
   "scripts": {
     "start": "concurrently 'yarn start:browsersync' 'yarn compile-css'",
     "start:browsersync": "browser-sync start --server --files \"*.css\" \"*.js\"",
-    "compile-css": "sass --watch decadeSneakers.scss decadeSneakers.css"
+    "compile-css": "sass --watch styles.scss styles.css"
   },
   "devDependencies": {
     "concurrently": "^5.0.1"
