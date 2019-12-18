@@ -128,16 +128,6 @@
     if (!isModalOpen) {
       return;
     }
-    // var modalRect = modalEl.getBoundingClientRect();
-    // console.log(e.clientX, e.clientY, modalRect);
-    // if (
-    //   e.clientX < modalRect.x ||
-    //   e.clientY < modalRect.y ||
-    //   e.clientX > (modalRect.x + modalRect.width) ||
-    //   e.clientY > (modalRect.y + modalRect.height)
-    // ) {
-    //   toggleModal(false);
-    // }
     if (e.target.classList.contains('modal-wrap')) {
         toggleModal(false);
     }
@@ -255,16 +245,11 @@
     // snapButtonToCenter();
   }
 
-  var snapButtonToCenter = function(year) {
+  var snapButtonToCenter = function() {
     if (isDesktop) {
       return;
     }
-
-    if (!year && activeYear) {
-      year = activeYear;
-    }
-
-    var index = document.querySelector('.nav-item[data-year="' + year + '"]').dataset.index;
+    var index = document.querySelector('.nav-item[data-year="' + activeYear + '"]').dataset.index;
     
     document.querySelector('.nav-bar').scroll({
       left: index * (navButtonWidth + navButtonGutter),
@@ -299,18 +284,20 @@
 
     addClickHandlers();
     addModalCloseButtonClickHandler();
-    snapButtonToCenter();
 
     setYearSectionScrollPositionTriggers();
     setNavBarTrigger();
     activeYear = getActiveYearBasedOnScrollPosition();
     highlightActiveYearButton();
 
+    snapButtonToCenter();
+    toggleNavBarDisplay();
     enableHighlightActiveYearButton();
   }
 
   window.onresize = function() {
     setIsDesktop();
+
     setYearSectionScrollPositionTriggers();
     setNavBarTrigger();
     activeYear = getActiveYearBasedOnScrollPosition();
