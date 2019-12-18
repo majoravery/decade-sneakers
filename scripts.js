@@ -250,7 +250,10 @@
   }
 
   var navigateToYear = function() {
-    var sectionOffset = document.getElementById(activeYear).getBoundingClientRect().top;
+    var yearEl = document.getElementById(activeYear);
+    var sectionOffset = yearEl.getBoundingClientRect().top;
+
+    yearEl.querySelector('video').play();
     
     window.scroll({
       top: parseInt(window.pageYOffset) + parseInt(sectionOffset) - 77 - 16, // height of navbar and some padding"
