@@ -44,6 +44,7 @@
   var centreXOffset = (windowWidth / 2) - (navButtonWidth / 2);
 
   var yearSectionTriggers = {};
+  var heroVideoHasPlayedState = {};
 
   var setIsDesktop = function() {
     isDesktop = document.body.clientWidth >= 1024 ? true : false;
@@ -114,6 +115,15 @@
     var fns = [disableHighlightActiveYearButton, navigateToYear, enableHighlightActiveYearButton];
     fns.forEach(function(fn) {
       fn();
+    });
+  }
+
+  var recordHeroVideoHasPlayedState = function() {
+    var yearSections = document.querySelectorAll('.section-wrap[id]');
+    yearSections.forEach(function(section) {
+      var year = parseInt(section.getAttribute('id'), 10);
+      var video = section.querySelector('video');
+      heroVideoHasPlayedState[year] = video ? !video.paused : false;
     });
   }
 
@@ -228,17 +238,23 @@
     if (activeYearButtonEl) {
       activeYearButtonEl.classList.remove('active');
     }
+
     if (!activeYear) {
+      history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + window.location.search);
       return;
     }
     activeYearButtonEl = document.querySelector('.nav-item[data-year="' + activeYear + '"]');
     activeYearButtonEl.classList.add('active');
 
-    if (activeYear) {
-      history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + window.location.search + '#' + activeYear);
-    } else {
-      history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + window.location.search);
+    if (!recordHeroVideoHasPlayedState[activeYear]) {
+      var video = document.querySelector('.section-wrap[id="' + activeYear + '"] video');
+      if (video) {
+        video.play();
+        recordHeroVideoHasPlayedState[activeYear] = true;
+      }
     }
+
+    history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + window.location.search + '#' + activeYear);
   }
 
   var disableHighlightActiveYearButton = function() {
@@ -253,8 +269,6 @@
     var yearEl = document.getElementById(activeYear);
     var sectionOffset = yearEl.getBoundingClientRect().top;
 
-    yearEl.querySelector('video').play();
-    
     window.scroll({
       top: parseInt(window.pageYOffset) + parseInt(sectionOffset) - 77 - 16, // height of navbar and some padding"
       behavior: 'smooth'
@@ -334,6 +348,8 @@
     moveButtonOut();
     moveModalImage();
     removeBadThings();
+
+    recordHeroVideoHasPlayedState();
 
     addClickHandlers();
     addModalCloseButtonClickHandler();
