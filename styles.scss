@@ -51,6 +51,16 @@ main {
 
   height: 100%;
 
+  &[id='2010'] {
+    margin-top: 48px;
+  }
+
+  @include mq($from: tablet) {
+    &[id='2010'] {
+      margin-top: 96px;
+    }
+  }
+
   &[id="2019"] {
     margin-bottom: 76px + 32px; // 76px is height of year buttons at the bottom
   }
@@ -66,6 +76,8 @@ main {
 
 .section-header {
   @include section-header();
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .section-header-content {
@@ -116,6 +128,7 @@ main {
   line-height: 1em;
   margin: 0;
   padding-top: 16px;
+  text-transform: uppercase;
 }
 
 .hero-shoe-copy {
@@ -159,7 +172,7 @@ main {
   width: 100%;
 
   @include mq($from: tablet) {
-    width: calc(100% / 3 - 1px);
+    width: calc(100% / 3);
   }
 
   &:hover {
@@ -327,6 +340,10 @@ main {
   > p:last-child {
     margin-bottom: 0;
   }
+
+  p {
+    font-size: 1em;
+  }
 }
 
 .moment-copy + .moment-read-more {
@@ -399,10 +416,18 @@ main {
   @include mq($from: desktop) {
     padding-bottom: 16px;
   }
+
+  & > p {
+    margin: 0;
+  }
 }
 
 .nav-bar-container {
   position: relative;
+
+  & > p {
+    margin: 0;
+  }
 }
 
 .nav-bar {
@@ -414,6 +439,10 @@ main {
     @include wrapper();
 
     overflow-x: auto;
+  }
+
+  & > p {
+    margin: 0;
   }
 }
 
@@ -481,6 +510,8 @@ main {
   z-index: 3;
 
   @include mq($from: tablet) {
+    padding-bottom: 16px;
+    padding-top: 96px;
   }
 }
 
@@ -491,7 +522,10 @@ main {
   display: flex;
   flex-wrap: wrap;
   height: calc(100vh - 32px);
-  margin: 18.8px; // dont want the rem to affect this
+  margin-top: 18.8px; // dont want the rem to affect this
+  margin-left: 18.8px; // dont want the rem to affect this
+  margin-right: 18.8px; // dont want the rem to affect this
+  margin-bottom: 18.8px; // dont want the rem to affect this
   max-height: 700px;
   padding: 0;
   position: relative;
@@ -505,6 +539,7 @@ main {
     height: 100%;
     max-width: 959px; // FIXME: honestly dk why lol
     overflow-y: hidden;
+    margin-top: 0;
   }
 
   > * {
@@ -604,6 +639,14 @@ main {
   font-weight: normal;
   line-height: 1.75em;
   margin: 0;
+
+  > p:last-child {
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 1em;
+  }
 }
 
 .modal-close-button {
@@ -611,6 +654,7 @@ main {
   background-color: white;
   border-bottom: 1px solid black;
   border-left: 1px solid black;
+  box-sizing: content-box;
   cursor: pointer;
   display: flex;
   font-size: 20px;
@@ -631,10 +675,11 @@ main {
 
   &:before {
     content: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZT0iIzAwMCI+CiAgICA8bGluZSB4MT0iMTcuMjUiIHgyPSIuNzUiIHkxPSIuNzUiIHkyPSIxNy4yNSIvPgogICAgPGxpbmUgeDE9Ii43NSIgeDI9IjE3LjI1IiB5MT0iLjc1IiB5Mj0iMTcuMjUiLz4KICA8L2c+Cjwvc3ZnPgo=);
-    width: 18px;
-    height: 18px;
+    box-sizing: content-box;
     font-size: 0;
+    height: 18px;
     line-height: 18px;
+    width: 18px;
   }
 }
 

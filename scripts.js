@@ -196,7 +196,7 @@
     }
     var y = window.scrollY;
     var triggers = Object.keys(yearSectionTriggers);
-    let year = null;
+    var year = null;
     for (var i = 0; i < triggers.length; i++) {
       if (y >= triggers[i] && y < triggers[i + 1]) {
         year = yearSectionTriggers[triggers[i]];
@@ -219,9 +219,9 @@
     activeYearButtonEl.classList.add('active');
 
     if (activeYear) {
-      history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + '#' + activeYear);
+      history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + window.location.search + '#' + activeYear);
     } else {
-      history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname);
+      history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + window.location.search);
     }
   }
 
@@ -279,18 +279,41 @@
     }
   }
 
+  var moveButtonOut = function() {
+    var buttons = document.querySelectorAll('.moment-read-more');
+    buttons.forEach(function(button) {
+      var parent = button.parentNode;
+      var grandparent = parent.parentNode;
+      if (grandparent.classList.contains('moment-info')) {
+        grandparent.appendChild(button);
+      }
+    })
+  }
+
+  var moveModalImage = function() {
+    var buttons = document.querySelectorAll('.modal-image');
+    buttons.forEach(function(button) {
+      var parent = button.parentNode;
+      var grandparent = parent.parentNode;
+      if (grandparent.classList.contains('modal-image-wrap')) {
+        grandparent.appendChild(button);
+      }
+    })
+  }
+
   var removeBadThings = function() {
-    var content = document.getElementsByClassName('post__content')[0];
-    var childNodes = content.childNodes;
-    childNodes.forEach(function(node) {
-      if ((node.nodeName === 'P' && node.classList.value === '' && node.innerHTML === '')) {
-        content.removeChild(node);
+    var pees = document.querySelectorAll('p');
+    pees.forEach(function(pee) {
+      if (pee.classList.value === '' && pee.innerHTML === '') {
+        pee.remove();
       }
     });
   }
 
   window.onload = function() {
     setIsDesktop();
+    moveButtonOut();
+    moveModalImage();
     removeBadThings();
 
     addClickHandlers();

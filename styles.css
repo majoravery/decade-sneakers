@@ -99,6 +99,14 @@ main {
     max-width: 1200px;
   }
 }
+.section-wrap[id="2010"] {
+  margin-top: 48px;
+}
+@media (min-width: 40em) {
+  .section-wrap[id="2010"] {
+    margin-top: 96px;
+  }
+}
 .section-wrap[id="2019"] {
   margin-bottom: 108px;
 }
@@ -121,6 +129,8 @@ main {
   justify-content: center;
   padding-top: 8px;
   width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .section-header::before {
   flex: 0 0 auto;
@@ -213,6 +223,7 @@ main {
   line-height: 1em;
   margin: 0;
   padding-top: 16px;
+  text-transform: uppercase;
 }
 
 .hero-shoe-copy {
@@ -258,7 +269,7 @@ main {
 }
 @media (min-width: 40em) {
   .runner-up {
-    width: calc(100% / 3 - 1px);
+    width: calc(100% / 3);
   }
 }
 .runner-up:hover .runner-up-name span {
@@ -416,6 +427,9 @@ main {
 .moment-copy > p:last-child {
   margin-bottom: 0;
 }
+.moment-copy p {
+  font-size: 1em;
+}
 
 .moment-copy + .moment-read-more {
   margin-top: 8px;
@@ -484,9 +498,15 @@ main {
     padding-bottom: 16px;
   }
 }
+.nav-bar-wrap > p {
+  margin: 0;
+}
 
 .nav-bar-container {
   position: relative;
+}
+.nav-bar-container > p {
+  margin: 0;
 }
 
 .nav-bar {
@@ -527,6 +547,9 @@ main {
   .nav-bar {
     max-width: 1200px;
   }
+}
+.nav-bar > p {
+  margin: 0;
 }
 
 .nav-items {
@@ -590,6 +613,13 @@ main {
   width: 100%;
   z-index: 3;
 }
+@media (min-width: 40em) {
+  .modal-wrap {
+    padding-bottom: 16px;
+    padding-top: 96px;
+  }
+}
+
 .modal {
   background-color: white;
   border: 1px solid black;
@@ -597,7 +627,10 @@ main {
   display: flex;
   flex-wrap: wrap;
   height: calc(100vh - 32px);
-  margin: 18.8px;
+  margin-top: 18.8px;
+  margin-left: 18.8px;
+  margin-right: 18.8px;
+  margin-bottom: 18.8px;
   max-height: 700px;
   padding: 0;
   position: relative;
@@ -612,6 +645,7 @@ main {
     height: 100%;
     max-width: 959px;
     overflow-y: hidden;
+    margin-top: 0;
   }
 }
 @media (min-width: 40em) and (min-width: 23.4375em) and (max-width: 39.99em) {
@@ -733,12 +767,19 @@ main {
   line-height: 1.75em;
   margin: 0;
 }
+.modal-info-copy > p:last-child {
+  margin-bottom: 0;
+}
+.modal-info-copy p {
+  font-size: 1em;
+}
 
 .modal-close-button {
   align-items: center;
   background-color: white;
   border-bottom: 1px solid black;
   border-left: 1px solid black;
+  box-sizing: content-box;
   cursor: pointer;
   display: flex;
   font-size: 20px;
@@ -760,10 +801,11 @@ main {
 }
 .modal-close-button:before {
   content: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZT0iIzAwMCI+CiAgICA8bGluZSB4MT0iMTcuMjUiIHgyPSIuNzUiIHkxPSIuNzUiIHkyPSIxNy4yNSIvPgogICAgPGxpbmUgeDE9Ii43NSIgeDI9IjE3LjI1IiB5MT0iLjc1IiB5Mj0iMTcuMjUiLz4KICA8L2c+Cjwvc3ZnPgo=);
-  width: 18px;
-  height: 18px;
+  box-sizing: content-box;
   font-size: 0;
+  height: 18px;
   line-height: 18px;
+  width: 18px;
 }
 
 @keyframes float {
@@ -798,4 +840,4 @@ main {
   max-width: 680px;
 }
 
-/*# sourceMappingURL=decadeSneakers.css.map */
+/*# sourceMappingURL=styles.css.map */
