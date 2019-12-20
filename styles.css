@@ -145,9 +145,7 @@ main {
 }
 
 .hero-image {
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
+  border: 1px solid black;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -292,6 +290,9 @@ main {
 .runner-up:hover .runner-up-image-shadow {
   transform: scale(0.95);
 }
+.runner-up > p {
+  margin: 0 !important;
+}
 
 .runner-up-image {
   align-items: center;
@@ -312,7 +313,7 @@ main {
 }
 
 .runner-up-image-placeholder {
-  padding-top: 112.5%;
+  padding-top: 125%;
 }
 
 .runner-up-image-shadow {
@@ -334,6 +335,9 @@ main {
   position: absolute;
   top: 0;
   width: 100%;
+}
+.runner-up-info > p {
+  margin: 0 !important;
 }
 
 .runner-up-name {
@@ -491,7 +495,7 @@ main {
   text-align: center;
   transform: translateY(0%);
   transition: transform 0.3s ease;
-  z-index: 1;
+  z-index: 80;
 }
 .nav-bar-wrap:before, .nav-bar-wrap:after {
   content: " ";
@@ -629,13 +633,13 @@ main {
   bottom: 0;
   box-sizing: border-box;
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 18.8px);
   justify-content: center;
   left: 0;
   max-width: unset !important;
   position: fixed;
   right: 0;
-  top: 0;
+  top: 18.8px;
   visibility: hidden;
   width: 100%;
   z-index: 400;
@@ -653,8 +657,7 @@ main {
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  height: 100vh;
-  margin-top: 18.8px;
+  height: calc(100vh - 37.6px);
   margin-left: 18.8px;
   margin-right: 18.8px;
   margin-bottom: 18.8px;
@@ -670,6 +673,7 @@ main {
     padding-right: 0.8823529412rem;
     height: 100%;
     max-width: 959px;
+    max-height: 600px;
     overflow-y: hidden;
     margin-top: 0;
     padding: 0;

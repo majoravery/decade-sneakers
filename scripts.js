@@ -44,22 +44,26 @@
   var navButtonGutter = 8;
   var centreXOffset = (windowWidth / 2) - (navButtonWidth / 2);
 
-  var yearSectionTriggers = {};
-  var heroVideoHasPlayedState = {};
+  var yearSectionTriggers = [];
+  var hasHeroVideoPlayed = {};
+
+  var isNavigating = false; // probs wont work because js isnt in sync but we'll see
 
   var setIsDesktop = function() {
     isDesktop = document.body.clientWidth >= 1024 ? true : false;
-    navBarPlaceholderOffset = document.querySelector('.nav-bar-placeholder').getBoundingClientRect().top;
+    setTimeout(function() {
+      navBarPlaceholderOffset = document.querySelector('.nav-bar-placeholder').getBoundingClientRect().top + window.scrollY;
+    }, 750);
   }
 
   var setYearSectionScrollPositionTriggers = function() {
-    yearSectionTriggers = {};
+    yearSectionTriggers = [];
     var scrollTop = window.scrollY - (window.innerHeight / 2);
     var yearSections = document.querySelectorAll('.section-wrap[id]');
     yearSections.forEach(function(section) {
       var year = parseInt(section.getAttribute('id'), 10);
       var top = scrollTop + section.getBoundingClientRect().y;
-      yearSectionTriggers[top] = year;
+      yearSectionTriggers.push(top);
     })
   }
   
@@ -94,22 +98,30 @@
   var navButtonClickHandler = function(e) {
     e.stopPropagation();
     e.preventDefault();
+    isNavigating = true;
     activeYear = e.target.parentNode.dataset.year; // e.target is the <a>
     
-    // i thought this callback system would solve the problems with the buttons highlighting as it scrolls
-    // but it doesnt, and it still works  so im gonna leave it
-    var fns = [disableHighlightActiveYearButton, navigateToYear, enableHighlightActiveYearButton];
-    fns.forEach(function(fn) {
-      fn();
-    });
+    navigateToActiveYear();
+    highlightActiveYearButton();
+    snapButtonToCenter();
   }
 
-  var recordHeroVideoHasPlayedState = function() {
+  var setHasHeroVideoPlayed = function() {
     var yearSections = document.querySelectorAll('.section-wrap[id]');
     yearSections.forEach(function(section) {
       var year = parseInt(section.getAttribute('id'), 10);
       var video = section.querySelector('video');
-      heroVideoHasPlayedState[year] = video ? !video.paused : false;
+      if (!video) {
+        return;
+      }
+
+      if (isDesktop) {
+        video.autoplay = false;
+        hasHeroVideoPlayed[year] = false; 
+      } else {
+        hasHeroVideoPlayed[year] = true;
+      }
+      
     });
   }
 
@@ -211,31 +223,28 @@
     modalImageEl.src = '';
   }
 
-  var animateModal = function() {
-
-  }
-
   var getActiveYearBasedOnScrollPosition = function() {
     if (!yearSectionTriggers) {
       return;
     }
     var y = window.scrollY;
-    var triggers = Object.keys(yearSectionTriggers);
     var year = null;
-    for (var i = 0; i < triggers.length; i++) {
-      if (y >= triggers[i] && y < triggers[i + 1]) {
-        year = yearSectionTriggers[triggers[i]];
-      } else if (i + 1 === triggers.length && y >= triggers[i]) {
+    for (var i = 0; i < yearSectionTriggers.length; i++) {
+      if (y >= yearSectionTriggers[i] && y < yearSectionTriggers[i + 1]) {
+        year = '201' + i;
+        // console.log(year);
+      } else if (i + 1 === yearSectionTriggers.length && y >= yearSectionTriggers[i]) {
         // for year 2019
         year = 2019;
       }
     }
 
-    if (year !== null && !recordHeroVideoHasPlayedState[year]) {
+    // PLAY HERO VIDEO 
+    if (year !== null && !hasHeroVideoPlayed[year]) {
       var video = document.querySelector('.section-wrap[id="' + year + '"] video');
       if (video) {
         video.play();
-        recordHeroVideoHasPlayedState[year] = true;
+        hasHeroVideoPlayed[year] = true;
       }
     }
     return year;
@@ -247,34 +256,37 @@
     }
 
     if (!activeYear) {
-      history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + window.location.search);
+      // history.replaceState({ year: activeYear }, "", window.location.origin + window.location.pathname + window.location.search);
       return;
     }
     activeYearButtonEl = document.querySelector('.nav-item[data-year="' + activeYear + '"]');
     activeYearButtonEl.classList.add('active');
 
-    history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + window.location.search + '#' + activeYear);
+    // history.replaceState({ year: activeYear }, "", window.location.origin + window.location.pathname + window.location.search + '#' + activeYear);
   }
 
-  var disableHighlightActiveYearButton = function() {
-    window.removeEventListener('scroll', onScrollHandler);
-  }
-
-  var enableHighlightActiveYearButton = function() {
-    window.addEventListener('scroll', onScrollHandler);
-  }
-
-  var navigateToYear = function() {
+  var navigateToActiveYear = function() {
     var yearEl = document.getElementById(activeYear);
     var sectionOffset = yearEl.getBoundingClientRect().top;
 
+    var headerHeight = isDesktop ? 77 : 60;
+    var top = parseInt(window.pageYOffset) + parseInt(sectionOffset) - headerHeight - 16;
+
     window.scroll({
-      top: parseInt(window.pageYOffset) + parseInt(sectionOffset) - 77 - 16, // height of navbar and some padding"
+      top: top, // height of navbar and some padding
       behavior: 'smooth'
     });
-    
-    highlightActiveYearButton();
-    // snapButtonToCenter();
+
+    var checkIfScrollHasFinished = setInterval(function() {
+      if (window.scrollY === top) {
+        isNavigating = false;
+        stopPollCheck();
+      }
+    }, 468); // according to polyfill above, scroll time is 468
+
+    function stopPollCheck() {
+      clearInterval(checkIfScrollHasFinished);
+    }
   }
 
   var snapButtonToCenter = function() {
@@ -290,9 +302,13 @@
   }
 
   var toggleNavBarDisplay = function() {
+    if (!navBarPlaceholderOffset) {
+      return;
+    }
+    
     if (!isDesktop) {
       var scrolledBeyondContent = (window.scrollY + window.innerHeight) > navBarPlaceholderOffset;
-      navBarEl.style.position = scrolledBeyondContent ? 'relative' : 'fixed';
+      navBarEl.style.position = scrolledBeyondContent ? 'absolute' : 'fixed';
     } else if (isDesktop && navBarEl.style.position !== 'sticky') {
       navBarEl.style.position = 'sticky'
     }
@@ -306,10 +322,13 @@
     };
   }
 
-  var onScrollHandler = function() {
+  var onScrollHandler = function() { // TODO: throttle
+    if (isNavigating) {
+      return;
+    }
+
     toggleNavBarDisplay();
 
-    // TODO: throttle
     var currentYear = getActiveYearBasedOnScrollPosition();
     if (currentYear !== activeYear && currentYear !== null) {
       activeYear = currentYear;
@@ -359,7 +378,7 @@
     moveModalImageOutOfWeirdPTag();
     removeBadThings();
 
-    recordHeroVideoHasPlayedState();
+    setHasHeroVideoPlayed();
 
     addClickHandlers();
     addModalCloseButtonClickHandler();
@@ -368,10 +387,9 @@
     setNavBarTrigger();
     activeYear = getActiveYearBasedOnScrollPosition();
     highlightActiveYearButton();
-
     snapButtonToCenter();
     toggleNavBarDisplay();
-    enableHighlightActiveYearButton();
+    window.addEventListener('scroll', onScrollHandler);
   }
 
   window.onresize = function() {

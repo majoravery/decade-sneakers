@@ -85,9 +85,7 @@ main {
 }
 
 .hero-image {
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
+  border: 1px solid black;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -207,6 +205,10 @@ main {
       transform: scale(0.95);
     }
   }
+
+  > p {
+    margin: 0!important;
+  }
 }
 
 .runner-up-image {
@@ -229,7 +231,7 @@ main {
 }
 
 .runner-up-image-placeholder {
-  padding-top: 112.5%;
+  padding-top: 125%;
 }
 
 .runner-up-image-shadow {
@@ -251,6 +253,10 @@ main {
   position: absolute;
   top: 0;
   width: 100%;
+
+  > p {
+    margin: 0!important;
+  }
 }
 
 .runner-up-name {
@@ -416,7 +422,7 @@ main {
   text-align: center;
   transform: translateY(0%);
   transition: transform 0.3s ease;
-  z-index: 1;
+  z-index: z('sticky-bottom-container');
 
   &:before,
   &:after {
@@ -536,13 +542,13 @@ main {
   bottom: 0;
   box-sizing: border-box;
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 18.8px);
   justify-content: center;
   left: 0;
   max-width: unset !important;
   position: fixed;
   right: 0;
-  top: 0;
+  top: 18.8px;
   visibility: hidden;
   width: 100%;
   z-index: z('popup');
@@ -559,8 +565,8 @@ main {
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  height: 100vh;
-  margin-top: 18.8px; // dont want the rem to affect this
+  height: calc(100vh - 37.6px);
+  // margin-top: 18.8px; // dont want the rem to affect this
   margin-left: 18.8px; // dont want the rem to affect this
   margin-right: 18.8px; // dont want the rem to affect this
   margin-bottom: 18.8px; // dont want the rem to affect this
@@ -575,6 +581,7 @@ main {
 
     height: 100%;
     max-width: 959px; // FIXME: honestly dk why lol
+    max-height: 600px;
     overflow-y: hidden;
     margin-top: 0;
     padding: 0;
