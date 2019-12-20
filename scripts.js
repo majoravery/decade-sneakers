@@ -23,6 +23,7 @@
 
 (function() {
   var isDesktop;
+  var navBarPlaceholderOffset;
 
   var isModalOpen = false;
   var shoeInModal;
@@ -48,6 +49,7 @@
 
   var setIsDesktop = function() {
     isDesktop = document.body.clientWidth >= 1024 ? true : false;
+    navBarPlaceholderOffset = document.querySelector('.nav-bar-placeholder').getBoundingClientRect().top;
   }
 
   var setYearSectionScrollPositionTriggers = function() {
@@ -74,27 +76,11 @@
     var runnerUps = document.querySelectorAll('.runner-up[id]');
     runnerUps.forEach(function(ru) {
       ru.addEventListener('click', runnerUpClickHandler);
-      if (window.dataLayer) {
-        window.dataLayer.push({
-          // event: (data.category + "." + data.action).replace(/\s/g, ''),
-          // category: subscribe_location,
-          // action: 'Subscribe',
-          // label: 'Newsletter'
-        });
-      }
     });
 
     var momentReadMores = document.querySelectorAll('.moment-read-more');
     momentReadMores.forEach(function(mrm) {
       mrm.addEventListener('click', momentClickHandler);
-      if (window.dataLayer) {
-        window.dataLayer.push({
-          // event: (data.category + "." + data.action).replace(/\s/g, ''),
-          // category: subscribe_location,
-          // action: 'Subscribe',
-          // label: 'Newsletter'
-        });
-      }
     });
   }
 
@@ -137,6 +123,12 @@
     shoeInModal = document.getElementById(id);
     populateModalWithRunnerUp();
     toggleModal(true, true, false);
+
+    window.dataLayer.push({
+      event: 'Decade Sneakers Click Shoe ' + id,
+      category: 'Decade Sneakers',
+      action: 'Click Shoe ' + id,
+    });
   }
 
   var momentClickHandler = function(e) {
@@ -148,6 +140,13 @@
 
     populateModalWithMoment(target);
     toggleModal(true, false, true);
+
+    var name = target.querySelector('.moment-name').innerHTML;
+    window.dataLayer.push({
+      event: 'Decade Sneakers Click Moment ' + name,
+      category: 'Decade Sneakers',
+      action: 'Click Moment ' + name,
+    });
   }
 
   var outsideModalClickHandler = function(e) {
@@ -231,6 +230,14 @@
         year = 2019;
       }
     }
+
+    if (year !== null && !recordHeroVideoHasPlayedState[year]) {
+      var video = document.querySelector('.section-wrap[id="' + year + '"] video');
+      if (video) {
+        video.play();
+        recordHeroVideoHasPlayedState[year] = true;
+      }
+    }
     return year;
   }
 
@@ -245,14 +252,6 @@
     }
     activeYearButtonEl = document.querySelector('.nav-item[data-year="' + activeYear + '"]');
     activeYearButtonEl.classList.add('active');
-
-    if (!recordHeroVideoHasPlayedState[activeYear]) {
-      var video = document.querySelector('.section-wrap[id="' + activeYear + '"] video');
-      if (video) {
-        video.play();
-        recordHeroVideoHasPlayedState[activeYear] = true;
-      }
-    }
 
     history.pushState({ year: activeYear }, "", window.location.origin + window.location.pathname + window.location.search + '#' + activeYear);
   }
@@ -279,7 +278,7 @@
   }
 
   var snapButtonToCenter = function() {
-    if (isDesktop) {
+    if (isDesktop || !activeYear) {
       return;
     }
     var index = document.querySelector('.nav-item[data-year="' + activeYear + '"]').dataset.index;
@@ -291,6 +290,13 @@
   }
 
   var toggleNavBarDisplay = function() {
+    if (!isDesktop) {
+      var scrolledBeyondContent = (window.scrollY + window.innerHeight) > navBarPlaceholderOffset;
+      navBarEl.style.position = scrolledBeyondContent ? 'relative' : 'fixed';
+    } else if (isDesktop && navBarEl.style.position !== 'sticky') {
+      navBarEl.style.position = 'sticky'
+    }
+
     if (window.scrollY > navBarTrigger && !isNavBarDisplayed) {
       navBarEl.classList.remove('hidden');
       isNavBarDisplayed = true;
@@ -312,7 +318,7 @@
     }
   }
 
-  var moveButtonOut = function() {
+  var moveButtonOutOfWeirdPTag = function() {
     var buttons = document.querySelectorAll('.moment-read-more');
     buttons.forEach(function(button) {
       var parent = button.parentNode;
@@ -323,7 +329,7 @@
     })
   }
 
-  var moveModalImage = function() {
+  var moveModalImageOutOfWeirdPTag = function() {
     var buttons = document.querySelectorAll('.modal-image');
     buttons.forEach(function(button) {
       var parent = button.parentNode;
@@ -344,9 +350,13 @@
   }
 
   window.onload = function() {
+    if (!window.dataLayer) {
+      window.dataLayer = [];
+    }
+
     setIsDesktop();
-    moveButtonOut();
-    moveModalImage();
+    moveButtonOutOfWeirdPTag();
+    moveModalImageOutOfWeirdPTag();
     removeBadThings();
 
     recordHeroVideoHasPlayedState();
